@@ -1,0 +1,55 @@
+---
+import Layout from './Layout.astro';
+import Sidebar from '../components/Sidebar.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+  sidebarTitle: string;
+  sidebarItems: Array<{
+    href: string;
+    text: string;
+  }>;
+  breadcrumbs: Array<{
+    href?: string;
+    text: string;
+  }>;
+}
+
+const { title, description, sidebarTitle, sidebarItems, breadcrumbs } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <div class="page-container">
+    <Sidebar title={sidebarTitle} items={sidebarItems} />
+    
+    <main class="main-content">
+      <div class="content-wrapper">
+        <nav class="breadcrumb">
+          {breadcrumbs.map((crumb, index) => (
+            <>
+              {crumb.href ? (
+                <a href={crumb.href}>{crumb.text}</a>
+              ) : (
+                <span>{crumb.text}</span>
+              )}
+              {index < breadcrumbs.length - 1 && ' > '}
+            </>
+          ))}
+        </nav>
+
+        <article class="markdown-content">
+          <slot />
+        </article>
+
+        <div class="navigation-links">
+          <slot name="navigation" />
+        </div>
+      </div>
+    </main>
+  </div>
+</Layout>
+
+<style>
+  @import '../styles/global.css';
+</style>

@@ -1,0 +1,275 @@
+---
+import Layout from '../layouts/Layout.astro';
+const query = Astro.url.searchParams.get('q') || '';
+---
+
+<Layout title={`搜索: ${query} - TeGo-AI 文档中心`}>
+  <div class="search-page">
+    <div class="search-header">
+      <h1>搜索结果</h1>
+      <p>关键词: <span class="search-query">"{query}"</span></p>
+    </div>
+    
+    <div class="search-results" id="searchResults">
+      <!-- 搜索结果将在这里动态生成 -->
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // 搜索数据
+  const searchData = [
+    {
+      title: "产品介绍",
+      description: "了解 TeGo-AI 的核心功能、技术优势和应用场景，包括智能体管理、API接口、快速部署等特性",
+      url: "/product-intro",
+      type: "官方文档",
+      views: 156,
+      keywords: ["产品", "介绍", "功能", "技术", "优势", "应用", "场景", "TeGo-AI", "智能体", "管理"]
+    },
+    {
+      title: "快速开始指南",
+      description: "详细的安装部署指南，助您快速上手 TeGo-AI 智能体管理平台，包含环境配置、基础设置等步骤",
+      url: "/getting-started",
+      type: "教程",
+      views: 89,
+      keywords: ["快速", "开始", "安装", "部署", "指南", "上手", "TeGo-AI", "教程", "入门"]
+    },
+    {
+      title: "产品功能详解",
+      description: "深入了解 TeGo-AI 的核心功能和技术特性，包括智能体管理、API接口、MCP服务等核心模块",
+      url: "/product-intro/features",
+      type: "官方文档",
+      views: 234,
+      keywords: ["产品", "功能", "核心", "技术", "特性", "TeGo-AI", "智能体", "管理", "平台"]
+    },
+    {
+      title: "技术架构说明",
+      description: "了解 TeGo-AI 的技术架构和系统设计，包括微服务架构、数据流设计、安全机制等技术细节",
+      url: "/product-intro/architecture",
+      type: "技术文档",
+      views: 67,
+      keywords: ["技术", "架构", "系统", "设计", "TeGo-AI", "智能体", "管理", "平台", "结构"]
+    },
+    {
+      title: "体验手册",
+      description: "快速体验产品功能的完整指南和演示，包含POC验证、功能测试、性能评估等实践内容",
+      url: "/poc-manual",
+      type: "体验指南",
+      views: 123,
+      keywords: ["体验", "手册", "功能", "指南", "演示", "POC", "试用", "测试"]
+    },
+    {
+      title: "常见问题解答",
+      description: "解答您在使用过程中的常见疑问和问题，包括故障排除、最佳实践、技术支持等内容",
+      url: "/faq",
+      type: "FAQ",
+      views: 445,
+      keywords: ["常见", "问题", "疑问", "解答", "FAQ", "帮助", "支持", "故障"]
+    }
+  ];
+
+  // 高亮文本
+  function highlightText(text: string, query: string) {
+    if (!query) return text;
+    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    return text.replace(regex, '<mark class="highlight">$1</mark>');
+  }
+
+  // 搜索函数
+  function performSearch(query: string) {
+    if (!query.trim()) return [];
+    
+    const results = searchData.filter(item => {
+      const searchText = `${item.title} ${item.description} ${item.keywords.join(' ')}`.toLowerCase();
+      return searchText.includes(query.toLowerCase());
+    });
+
+    return results.sort((a, b) => {
+      const aScore = getMatchScore(a, query);
+      const bScore = getMatchScore(b, query);
+      return bScore - aScore;
+    });
+  }
+
+  function getMatchScore(item: any, query: string) {
+    const queryLower = query.toLowerCase();
+    let score = 0;
+    
+    if (item.title.toLowerCase().includes(queryLower)) score += 10;
+    const keywordMatches = item.keywords.filter((keyword: string) => 
+      keyword.toLowerCase().includes(queryLower)
+    ).length;
+    score += keywordMatches * 5;
+    if (item.description.toLowerCase().includes(queryLower)) score += 3;
+    
+    return score;
+  }
+
+    // 页面加载时执行搜索
+  document.addEventListener('DOMContentLoaded', function() {
+    const query = new URLSearchParams(window.location.search).get('q') || '';
+    const resultsContainer = document.getElementById('searchResults');
+    const searchQueryElement = document.querySelector('.search-query');
+    
+    if (!resultsContainer) return;
+    
+    // 更新页面标题中的关键词显示
+    if (searchQueryElement) {
+      searchQueryElement.textContent = `"${query}"`;
+    }
+    
+    if (!query.trim()) {
+      resultsContainer.innerHTML = '<div class="no-query">请输入搜索关键词</div>';
+      return;
+    }
+    
+    const results = performSearch(query);
+    
+    if (results.length === 0) {
+      resultsContainer.innerHTML = `
+        <div class="no-results">
+          <h3>没有找到相关结果</h3>
+          <p>请尝试其他关键词或检查拼写</p>
+        </div>
+      `;
+      return;
+    }
+    
+    resultsContainer.innerHTML = `
+      <div class="results-count">找到 ${results.length} 个结果</div>
+      <div class="results-list">
+        ${results.map(item => `
+          <a href="${item.url}" class="result-item">
+            <h3 class="result-title">${highlightText(item.title, query)}</h3>
+            <p class="result-description">${highlightText(item.description, query)}</p>
+          </a>
+        `).join('')}
+      </div>
+    `;
+  });
+</script>
+
+<style>
+  .search-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .search-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .search-header h1 {
+    font-size: 2.5rem;
+    color: #1e293b;
+    margin-bottom: 1rem;
+  }
+
+  .search-query {
+    color: #3b82f6;
+    font-weight: 600;
+  }
+
+  .results-count {
+    font-size: 1.1rem;
+    color: #64748b;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .results-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .result-item {
+    display: block;
+    padding: 1rem 0;
+    text-decoration: none !important;
+    color: #1e293b;
+    border-bottom: 1px solid #f1f5f9;
+    transition: background-color 0.2s ease;
+  }
+
+  .result-item:hover {
+    text-decoration: none !important;
+  }
+
+  .result-item:visited {
+    text-decoration: none !important;
+  }
+
+  .result-item:last-child {
+    border-bottom: none;
+  }
+
+  .result-item:hover {
+    background: #f8fafc;
+  }
+
+  .result-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 0.5rem 0;
+    text-decoration: none !important;
+  }
+
+  .result-description {
+    color: #1e293b;
+    margin: 0;
+    line-height: 1.5;
+    font-size: 0.9rem;
+    text-decoration: none !important;
+  }
+
+  .highlight {
+    background: #dbeafe;
+    color: #1e40af;
+    padding: 0.1rem 0.2rem;
+    border-radius: 3px;
+    font-weight: 600;
+  }
+
+  .no-query, .no-results {
+    text-align: center;
+    padding: 3rem;
+    color: #64748b;
+  }
+
+  .no-results h3 {
+    color: #1e293b;
+    margin-bottom: 1rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    .search-page {
+      padding: 1rem;
+    }
+    
+    .search-header h1 {
+      font-size: 2rem;
+    }
+    
+    .result-item {
+      padding: 1rem;
+    }
+    
+    .result-header {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .result-type {
+      margin-left: 0;
+      align-self: flex-start;
+    }
+  }
+</style>

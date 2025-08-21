@@ -1,0 +1,107 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { name: '首页', path: '/' },
+  { 
+    name: '产品介绍', 
+    path: '/product-intro',
+    children: [
+      { name: '产品介绍', path: '/product-intro' },
+      { name: '产品功能', path: '/product-intro/features' },
+      { name: '技术架构', path: '/product-intro/architecture' }
+    ]
+  },
+  { 
+    name: '使用手册', 
+    path: '/product-guide',
+    children: [
+      { name: '快速开始', path: '/getting-started' },
+      { name: '产品手册', path: '/product-manual' },
+      { name: '详细指南', path: '/product-guide' },
+      { name: '最佳实践', path: '/best-practices' }
+    ]
+  },
+  { 
+    name: '体验手册', 
+    path: '/poc-manual',
+    children: [
+      { name: '概念验证', path: '/poc-manual' },
+      { name: '演示案例', path: '/demo-cases' },
+      { name: '试用指南', path: '/trial-guide' }
+    ]
+  },
+  { name: '常见问题', path: '/faq' },
+  { name: '关于我们', path: '/about' },
+];
+---
+
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-brand">
+      <a href="/" class="logo-link">
+        <img src="/src/assets/logo_light.png" alt="Logo" class="logo-image" />
+      </a>
+    </div>
+    <ul class="nav-menu">
+      {navItems.map(item => (
+        <li class={`nav-item ${item.children ? 'has-dropdown' : ''}`}>
+          {item.children ? (
+            <div class="dropdown-container">
+              <a 
+                href={item.path} 
+                class={`nav-link dropdown-toggle ${currentPath === item.path ? 'active' : ''}`}
+              >
+                {item.name}
+                <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <ul class="dropdown-menu">
+                {item.children.map(child => (
+                  <li>
+                    <a 
+                      href={child.path} 
+                      class={`dropdown-link ${currentPath === child.path ? 'active' : ''}`}
+                    >
+                      {child.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <a 
+              href={item.path} 
+              class={`nav-link ${currentPath === item.path ? 'active' : ''}`}
+            >
+              {item.name}
+            </a>
+          )}
+        </li>
+      ))}
+    </ul>
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+
+    hamburger?.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navMenu?.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.nav-link, .dropdown-link').forEach(n => n.addEventListener('click', () => {
+      hamburger?.classList.remove('active');
+      navMenu?.classList.remove('active');
+    }));
+  });
+</script>

@@ -1,0 +1,178 @@
+---
+export interface Props {
+  title: string;
+  items: Array<{
+    href: string;
+    text: string;
+  }>;
+}
+
+const { title, items } = Astro.props;
+---
+
+<aside class="sidebar">
+  <div class="sidebar-content">
+    <h3 class="sidebar-title">{title}</h3>
+    <nav class="toc">
+      <ul class="toc-list">
+        {items.map(item => (
+          <li>
+            <a href={item.href} class="toc-link">{item.text}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</aside>
+
+<script>
+  console.log('Sidebar script starting...');
+  
+  // 等待DOM加载完成
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSidebar);
+  } else {
+    initSidebar();
+  }
+  
+  function initSidebar() {
+    console.log('Sidebar script loaded');
+    
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const sections = document.querySelectorAll('h1[id], h2[id], h3[id]');
+    
+    console.log('Found tocLinks:', tocLinks.length);
+    console.log('Found sections:', sections.length);
+
+    // 平滑滚动到锚点
+    tocLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const href = this.getAttribute('href');
+        const targetId = href ? href.substring(1) : '';
+        console.log('Clicking link:', href, 'targetId:', targetId);
+        
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          const elementOffsetTop = (targetElement as HTMLElement).offsetTop;
+          const navbar = document.querySelector('.navbar') as HTMLElement;
+          const navbarHeight = navbar ? navbar.offsetHeight : 88;
+          const offsetTop = elementOffsetTop - 150;
+          
+          console.log('Click jump debug:', {
+            targetId,
+            elementOffsetTop,
+            navbarHeight,
+            calculatedOffset: offsetTop,
+            currentScrollTop: window.pageYOffset,
+            elementRect: targetElement.getBoundingClientRect()
+          });
+          
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+          history.pushState(null, '', '#' + targetId);
+          
+          // 手动更新活动状态
+          tocLinks.forEach(l => l.classList.remove('active'));
+          (this as HTMLAnchorElement).classList.add('active');
+        } else {
+          console.log('Target element not found:', targetId);
+        }
+      });
+    });
+
+    // 滚动监听，更新活动链接
+    let lastActiveSection = '';
+    
+    function updateActiveLink() {
+      let current = '';
+      const viewportHeight = window.innerHeight;
+      const scrollTop = window.pageYOffset;
+
+      console.log('Sections found:', sections.length);
+      console.log('Viewport height:', viewportHeight, 'Scroll top:', scrollTop);
+      
+      // 找到当前在视口中的章节
+      let currentSection = null;
+      
+      // 从前往后查找，找到第一个在视口顶部附近的章节
+      for (let i = 0; i < sections.length; i++) {
+        const section = sections[i];
+        const rect = section.getBoundingClientRect();
+        const sectionId = section.getAttribute('id');
+        
+        console.log('Section:', sectionId, 'Top:', rect.top, 'Bottom:', rect.bottom);
+        
+        // 只有当章节标题在视口顶部附近时才选中
+        if (rect.top <= 150 && rect.top >= -50) {
+          currentSection = sectionId;
+          console.log('Found current section:', currentSection, 'Top position:', rect.top);
+          break;
+        }
+      }
+      
+      current = currentSection || lastActiveSection; // 如果没有找到新章节，保持上一个
+      
+      // 只有当章节真正改变时才更新
+      if (current !== lastActiveSection) {
+        lastActiveSection = current;
+        console.log('Section changed to:', current);
+        
+        tocLinks.forEach(link => {
+          link.classList.remove('active');
+          const href = link.getAttribute('href');
+          if (href && href === '#' + current) {
+            link.classList.add('active');
+            console.log('Activated link:', href);
+          }
+        });
+      }
+
+      console.log('Current section:', current);
+    }
+
+            // 节流函数
+        let ticking = false;
+        function requestTick() {
+          if (!ticking) {
+            requestAnimationFrame(() => {
+              updateActiveLink();
+              ticking = false;
+            });
+            ticking = true;
+          }
+        }
+      
+        window.addEventListener('scroll', requestTick);
+        updateActiveLink(); // 初始化
+        
+        // 初始化通用锚点链接处理
+        // 处理所有锚点链接
+        const anchorLinks = document.querySelectorAll('a[href^="#"]');
+        anchorLinks.forEach(link => {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const href = this.getAttribute('href');
+            if (!href) return;
+            
+            const targetId = decodeURIComponent(href.substring(1));
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+              const elementOffsetTop = (targetElement as HTMLElement).offsetTop;
+              const navbar = document.querySelector('.navbar') as HTMLElement;
+              const navbarHeight = navbar ? navbar.offsetHeight : 88;
+              const offsetTop = elementOffsetTop - 150;
+              
+              window.scrollTo({
+                top: offsetTop,
+                behavior: 'smooth'
+              });
+              history.pushState(null, '', href);
+            }
+          });
+        });
+  }
+</script>

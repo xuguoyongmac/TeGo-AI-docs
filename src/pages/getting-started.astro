@@ -1,0 +1,51 @@
+---
+import DocLayout from '../layouts/DocLayout.astro';
+import { readFileSync } from 'fs';
+import { marked } from 'marked';
+
+// 读取Markdown内容
+const markdownContent = readFileSync('./src/content/getting-started.md', 'utf-8');
+
+// 预处理内容，将 {#id} 格式转换为标准格式
+const processedContent = markdownContent.replace(/\{#([^}]+)\}/g, ' {#$1}');
+let htmlContent = marked(processedContent) as string; // Cast to string for replace method
+
+// 手动添加ID到标题元素
+htmlContent = htmlContent.replace(
+  /<h([1-6])>([^<]*)\s*\{#([^}]+)\}<\/h([1-6])>/g,
+  '<h$1 id="$3">$2</h$1>'
+);
+
+// 侧边栏配置
+const sidebarItems = [
+  { href: '#overview', text: '概述' },
+  { href: '#environment', text: '环境准备' },
+  { href: '#installation', text: '安装部署' },
+  { href: '#configuration', text: '基础配置' },
+  { href: '#first-use', text: '首次使用' },
+  { href: '#verification', text: '功能验证' },
+  { href: '#troubleshooting', text: '常见问题' },
+  { href: '#next-steps', text: '下一步' }
+];
+
+// 面包屑配置
+const breadcrumbs = [
+  { href: '/', text: '首页' },
+  { text: '快速开始' }
+];
+---
+
+<DocLayout 
+  title="TeGo-AI 快速开始"
+  description="TeGo-AI 智能体管理平台的快速开始指南，包括环境准备、安装部署、基础配置等"
+  sidebarTitle="目录"
+  sidebarItems={sidebarItems}
+  breadcrumbs={breadcrumbs}
+>
+  <div set:html={htmlContent} />
+  
+  <div slot="navigation">
+    <a href="/" class="nav-link">← 返回首页</a>
+    <a href="/product-intro/features" class="nav-link">核心功能 →</a>
+  </div>
+</DocLayout>

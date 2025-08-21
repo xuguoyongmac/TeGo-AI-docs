@@ -1,0 +1,736 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="TeGo-AI 文档中心">
+  <!-- 产品英雄区域 -->
+  <div class="hero-section">
+    <div class="hero-background">
+      <div class="ai-particles"></div>
+      <div class="neural-network"></div>
+      <div class="data-streams"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="hero-title">
+          <span class="gradient-text">TeGo-AI</span>
+          <span class="subtitle">智能体管理平台</span>
+        </h1>
+        <p class="hero-description">
+          重新定义 AI 基础设施，通过四大核心创新模块，为企业提供高效、敏捷的 AI 能力，助力快速构建智能应用。
+        </p>
+      </div>
+      <div class="hero-visual">
+        <div class="platform-showcase">
+          <div class="main-platform">
+            <img src="/src/assets/productImage/de1638a41e7f151958a583bb060c109e.jpeg" alt="TeGo-AI 平台概览" class="main-screenshot" />
+            <div class="platform-glow"></div>
+          </div>
+
+          <div class="floating-modules">
+            <div class="module module-1">
+              <img src="/src/assets/lmn.jpeg" alt="功能模块1" />
+            </div>
+            <div class="module module-2">
+              <img src="/src/assets/hijk.jpeg" alt="功能模块2" />
+            </div>
+            <div class="module module-3">
+              <img src="/src/assets/efg.jpeg" alt="功能模块3" />
+            </div>
+            <div class="module module-4">
+              <img src="/src/assets/abcd.jpeg" alt="功能模块4" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 核心功能展示 -->
+  <div class="core-features">
+          <div class="section-header">
+        <h2>核心功能</h2>
+        <p>四大创新模块，重新定义 AI 基础设施</p>
+        <a href="/product-intro/features" class="more-link">查看更多 →</a>
+      </div>
+      
+      <div class="features-grid">
+        <a href="/product-intro/features" class="feature-card">
+          <div class="feature-header">
+            <div class="feature-icon">🚀</div>
+            <h3>智能实例管理</h3>
+          </div>
+          <p>基于向量化技术对服务器实例多维度建模，实现拓扑感知调度，提升资源利用率与成本效益。</p>
+          <div class="feature-screenshot">
+            <img src="/src/assets/productImage/image_20250818170911_128.png" alt="智能实例管理" />
+          </div>
+        </a>
+
+        <a href="/product-intro/features" class="feature-card">
+          <div class="feature-header">
+            <div class="feature-icon">🔒</div>
+            <h3>服务动态发现与组合</h3>
+          </div>
+          <p>通过 MCP 服务注册中心，AI Agent 可实时发现并组合工具，自主完成复杂任务，突破传统硬编码限制。</p>
+          <div class="feature-screenshot">
+            <img src="/src/assets/productImage/image_20250818170911_129.png" alt="服务动态发现" />
+          </div>
+        </a>
+
+        <a href="/product-intro/features" class="feature-card">
+          <div class="feature-header">
+            <div class="feature-icon">📊</div>
+            <h3>MCP 服务自动化生成</h3>
+          </div>
+          <p>基于 OpenAPI 等规范自动生成 MCP 服务，无缝接入企业存量系统，降低生态构建成本。</p>
+          <div class="feature-screenshot">
+            <img src="/src/assets/productImage/image_20250818170911_130.png" alt="MCP服务自动化" />
+          </div>
+        </a>
+
+        <a href="/product-intro/features" class="feature-card">
+          <div class="feature-header">
+            <div class="feature-icon">🎯</div>
+            <h3>运行时 UI 动态生成</h3>
+          </div>
+          <p>支持 MCP Elicitation 机制，按需生成交互界面，优化人机协作效率。</p>
+          <div class="feature-screenshot">
+            <img src="/src/assets/productImage/image_20250818170911_131.png" alt="运行时UI生成" />
+          </div>
+        </a>
+
+        <a href="/product-intro/features" class="feature-card">
+          <div class="feature-header">
+            <div class="feature-icon">🌐</div>
+            <h3>LLM网关</h3>
+          </div>
+          <p>集成主流大模型与本地模型，支持语义理解、文生图、RAG等智能交互，提供强大的AI能力支撑。</p>
+          <div class="feature-screenshot">
+            <img src="/src/assets/productImage/image_20250818170911_132.png" alt="LLM网关" />
+          </div>
+        </a>
+
+        <a href="/product-intro/features" class="feature-card">
+          <div class="feature-header">
+            <div class="feature-icon">⚙️</div>
+            <h3>流程引擎与数据总线</h3>
+          </div>
+          <p>实现数据追踪、任务编排、触发逻辑等业务自动化能力，确保业务流程的智能化执行与监控。</p>
+          <div class="feature-screenshot">
+            <img src="/src/assets/productImage/image_20250818170911_133.png" alt="流程引擎" />
+          </div>
+        </a>
+      </div>
+  </div>
+
+  <!-- 技术优势 -->
+  <div class="tech-advantages">
+          <div class="section-header">
+        <h2>技术优势</h2>
+        <p>领先的技术架构，为企业提供强大支撑</p>
+        <a href="/product-intro/architecture" class="more-link">查看更多 →</a>
+      </div>
+      
+      <div class="advantages-grid">
+        <div class="advantage-item">
+          <div class="advantage-number">01</div>
+          <h4>零代码接入</h4>
+          <p>基于 OpenAPI/Swagger 自动把现有 REST 服务封装成 MCP Server，实现30分钟上线。</p>
+        </div>
+        
+        <div class="advantage-item">
+          <div class="advantage-number">02</div>
+          <h4>拓扑感知调度</h4>
+          <p>把实例 CPU/内存/地域/成本等 30+ 维度向量化，动态匹配任务，资源利用率提升 100%。</p>
+        </div>
+        
+        <div class="advantage-item">
+          <div class="advantage-number">03</div>
+          <h4>实时服务发现</h4>
+          <p>MCP 注册中心让 AI Agent 像"冲浪"一样即时发现/组合工具，无需硬编码即可无限扩展</p>
+        </div>
+        
+        <div class="advantage-item">
+          <div class="advantage-number">04</div>
+          <h4>运行时 UI</h4>
+          <p>MCP-Elicitation 把 JSON-Schema 秒变交互表单，5 秒响应需求变更，彻底告别前端排期。</p>
+        </div>
+      </div>
+  </div>
+
+  <!-- 应用场景 -->
+  <div class="application-scenarios">
+    <div class="section-header">
+      <h2>应用场景</h2>
+      <p>适用于以下行业和场景</p>
+    </div>
+      
+      <div class="scenarios-grid">
+        <div class="scenario-card">
+          <div class="scenario-icon">
+            <img src="/src/assets/zhinengyuny.jpeg" alt="全域智能运营" class="scenario-icon-img" />
+          </div>
+          <h4>全域智能运营</h4>
+          <p>驱动企业流程自治，重塑管理效率巅峰</p>
+        </div>
+        
+        <div class="scenario-card">
+          <div class="scenario-icon">
+            <img src="/src/assets/shujuzichan.jpeg" alt="数据资产对话化" class="scenario-icon-img" />
+          </div>
+          <h4>数据资产对话化</h4>
+          <p>为数据驱动的决策提供强有力的支持，让数据秒变决策智慧，构筑竞争壁垒</p>
+        </div>
+        
+        <div class="scenario-card">
+          <div class="scenario-icon">
+            <img src="/src/assets/xietong.jpeg" alt="无界业务协同" class="scenario-icon-img" />
+          </div>
+          <h4>无界业务协同</h4>
+          <p>打破系统孤岛，构建跨组织一体化运营新范式</p>
+        </div>
+        
+        <div class="scenario-card">
+          <div class="scenario-icon">
+            <img src="/src/assets/jingxihuaziyun.jpeg" alt="云资源精细治理" class="scenario-icon-img" />
+          </div>
+          <h4>云资源精细治理</h4>
+          <p>以 AI-FINOPS 实现算力与成本的最优解</p>
+        </div>
+        
+        <div class="scenario-card">
+          <div class="scenario-icon">
+            <img src="/src/assets/shuzizhuanx.jpeg" alt="极简数字转型" class="scenario-icon-img" />
+          </div>
+          <h4>极简数字转型</h4>
+          <p>零改动接入存量系统，一键跃迁智能化</p>
+        </div>
+        
+        <div class="scenario-card">
+          <div class="scenario-icon">
+            <img src="/src/assets/juece.jpeg" alt="人机共生决策" class="scenario-icon-img" />
+          </div>
+          <h4>人机共生决策</h4>
+          <p>动态 UI 实时交互，释放人类创造力与 AI 算力的乘数效应</p>
+        </div>
+      </div>
+  </div>
+</Layout>
+
+<style>
+  /* 产品英雄区域 */
+  .hero-section {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+    padding: 0.8rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .hero-text {
+    text-align: left;
+  }
+
+
+
+  .hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #1e293b, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    display: block;
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #1e293b, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+  }
+
+  .hero-description {
+    font-size: 1.1rem;
+    color: #475569;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .platform-showcase {
+    position: relative;
+  }
+
+  .platform-showcase::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    background: rgba(59, 130, 246, 0.8);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.6);
+  }
+
+
+
+
+
+  .main-platform {
+    position: relative;
+  }
+
+  .main-screenshot {
+    width: 100%;
+    max-width: 550px;
+    height: 300px;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+  }
+
+  .platform-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.08));
+    border-radius: 20px;
+    filter: blur(20px);
+    z-index: -1;
+    animation: glowPulse 3s ease-in-out infinite;
+  }
+
+  @keyframes glowPulse {
+    0%, 100% { opacity: 0.05; transform: scale(1); }
+    50% { opacity: 0.2; transform: scale(1.02); }
+  }
+
+  .floating-modules {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+  }
+
+  .module {
+    position: absolute;
+    animation: moduleFloat 6s ease-in-out infinite;
+  }
+
+  .module img {
+    width: 80px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(59, 130, 246, 0.25);
+  }
+
+
+
+  .module-1 {
+    top: 5%;
+    right: 60px;
+    animation: float 6s ease-in-out infinite;
+    animation-delay: 0s;
+  }
+
+  .module-2 {
+    top: 10%;
+    left: 40px;
+    animation: float 6s ease-in-out infinite;
+    animation-delay: 0s;
+  }
+
+  .module-3 {
+    top: 60%;
+    right: 10%;
+    animation: floatReverse 6s ease-in-out infinite;
+    animation-delay: 0s;
+  }
+
+  .module-4 {
+    bottom: 25%;
+    left: 40%;
+    animation: floatReverse 6s ease-in-out infinite;
+    animation-delay: 0s;
+  }
+
+  @keyframes float {
+    0%, 100% { 
+      transform: translateY(0px) rotate(0deg); 
+    }
+    50% { 
+      transform: translateY(-20px) rotate(2deg); 
+    }
+  }
+
+  @keyframes floatReverse {
+    0%, 100% { 
+      transform: translateY(0px) rotate(0deg); 
+    }
+    50% { 
+      transform: translateY(20px) rotate(-2deg); 
+    }
+  }
+
+  /* 核心功能 */
+  .core-features {
+    padding: 0.5rem 0;
+    background: #f8fafc;
+    position: relative;
+  }
+
+  .core-features::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3), transparent);
+  }
+
+
+
+  .core-features .section-header,
+  .tech-advantages .section-header,
+  .application-scenarios .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: none !important;
+  }
+
+  .section-header h2 {
+    font-size: 2.5rem;
+    color: #1e293b;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    position: relative;
+  }
+
+  .section-header h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 4px;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6, #06b6d4);
+    border-radius: 2px;
+  }
+
+  .section-header p {
+    font-size: 1.1rem;
+    color: #64748b;
+    margin-bottom: 1rem;
+  }
+
+  .more-link {
+    display: inline-block;
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+
+  .more-link:hover {
+    color: #1d4ed8;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .feature-card {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.1);
+    backdrop-filter: blur(10px);
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(59, 130, 246, 0.2);
+    border-color: #3b82f6;
+  }
+
+  .feature-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .feature-icon {
+    font-size: 2rem;
+    margin-right: 1rem;
+  }
+
+  .feature-card h3 {
+    margin: 0;
+    color: #1e293b;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  .feature-card p {
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .feature-highlight {
+    margin-bottom: 1rem;
+  }
+
+  .highlight-text {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-block;
+  }
+
+  .feature-screenshot {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  .feature-screenshot img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .feature-screenshot:hover img {
+    transform: scale(1.02);
+  }
+
+  /* 技术优势 */
+  .tech-advantages {
+    padding: 2rem 0 3rem 0;
+    background: #f8fafc;
+    position: relative;
+  }
+
+  .tech-advantages::after {
+    content: '';
+    position: absolute;
+    bottom: -1rem;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3), transparent);
+    z-index: 1;
+  }
+
+
+
+  .advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .advantage-item {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .advantage-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    border-color: #3b82f6;
+  }
+
+  .advantage-number {
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+  }
+
+  .advantage-item h4 {
+    color: #1e293b;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .advantage-item p {
+    color: #64748b;
+    line-height: 1.6;
+  }
+
+  /* 应用场景 */
+  .application-scenarios {
+    padding: 2rem 0 3rem 0;
+    background: #f8fafc;
+    position: relative;
+  }
+
+  .application-scenarios::after {
+    content: '';
+    position: absolute;
+    bottom: -1rem;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3), transparent);
+    z-index: 1;
+  }
+
+
+
+  .scenarios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .scenario-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .scenario-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    border-color: #3b82f6;
+  }
+
+  .scenario-icon {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .scenario-icon-img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 16px 40px rgba(59, 130, 246, 0.25);
+    transition: transform 0.3s ease;
+  }
+
+  .scenario-card:hover .scenario-icon-img {
+    transform: scale(1.05);
+  }
+
+  .scenario-card h4 {
+    margin: 0 0 1rem 0;
+    color: #1e293b;
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+
+  .scenario-card p {
+    color: #64748b;
+    line-height: 1.6;
+  }
+
+  /* 响应式设计 */
+  @media (max-width: 768px) {
+    .hero-content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+    }
+
+    .hero-stats {
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .features-grid,
+    .advantages-grid,
+    .scenarios-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+    }
+
+    .module {
+      display: none;
+    }
+  }
+</style>

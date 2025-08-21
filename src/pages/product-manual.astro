@@ -1,0 +1,229 @@
+---
+import DocLayout from '../layouts/DocLayout.astro';
+import { readFileSync } from 'fs';
+import { marked } from 'marked';
+
+// 读取产品手册内容
+const content = readFileSync('./src/content/product-manual.md', 'utf-8');
+
+// 预处理内容，将 {#id} 格式转换为标准格式
+const processedContent = content.replace(/\{#([^}]+)\}/g, ' {#$1}');
+let htmlContent = marked(processedContent) as string;
+
+// 手动添加ID到标题元素
+htmlContent = htmlContent.replace(
+  /<h([1-6])>([^<]*)\s*\{#([^}]+)\}<\/h([1-6])>/g,
+  '<h$1 id="$3">$2</h$1>'
+);
+---
+
+<DocLayout 
+  title="产品功能说明与操作手册 - TeGo-AI 文档中心"
+  sidebarTitle="产品手册"
+  sidebarItems={[
+    { href: "#产品概述", text: "产品概述" },
+    { href: "#系统架构", text: "系统架构" },
+    { href: "#核心功能模块", text: "核心功能模块" },
+    { href: "#详细操作指南", text: "详细操作指南" },
+    { href: "#最佳实践", text: "最佳实践" },
+    { href: "#故障排除", text: "故障排除" }
+  ]}
+  breadcrumbs={[
+    { href: "/", text: "首页" },
+    { href: "/product-intro", text: "产品介绍" },
+    { text: "产品手册" }
+  ]}
+>
+  <div class="doc-content">
+    <div class="content-header">
+      <h1>产品功能说明与操作手册</h1>
+      <p class="doc-description">
+        基于产品截图和实际功能，为您提供完整的 TeGo-AI 智能体管理平台使用指南
+      </p>
+    </div>
+    
+    <div class="content-body" set:html={htmlContent}></div>
+  </div>
+</DocLayout>
+
+<style>
+  .doc-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .content-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .content-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 1rem;
+  }
+
+  .doc-description {
+    font-size: 1.1rem;
+    color: #64748b;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .content-body {
+    line-height: 1.7;
+    color: #374151;
+  }
+
+  .content-body h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #3b82f6;
+  }
+
+  .content-body h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 1.5rem 0 1rem 0;
+  }
+
+  .content-body h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #374151;
+    margin: 1.25rem 0 0.75rem 0;
+  }
+
+  .content-body h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #4b5563;
+    margin: 1rem 0 0.5rem 0;
+  }
+
+  .content-body p {
+    margin-bottom: 1rem;
+  }
+
+  .content-body ul, .content-body ol {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+  }
+
+  .content-body li {
+    margin-bottom: 0.5rem;
+  }
+
+  .content-body strong {
+    color: #1e293b;
+    font-weight: 600;
+  }
+
+  .content-body code {
+    background: #f1f5f9;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.9rem;
+    color: #dc2626;
+  }
+
+  .content-body pre {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1rem 0;
+  }
+
+  .content-body pre code {
+    background: none;
+    color: inherit;
+    padding: 0;
+  }
+
+  .content-body blockquote {
+    border-left: 4px solid #3b82f6;
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: #64748b;
+    font-style: italic;
+  }
+
+  .content-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+  }
+
+  .content-body th,
+  .content-body td {
+    border: 1px solid #e5e7eb;
+    padding: 0.75rem;
+    text-align: left;
+  }
+
+  .content-body th {
+    background: #f8fafc;
+    font-weight: 600;
+    color: #374151;
+  }
+
+  .content-body tr:nth-child(even) {
+    background: #f9fafb;
+  }
+
+  /* 特殊样式 */
+  .feature-highlight {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .highlight-box {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .highlight-box h4 {
+    color: #3b82f6;
+    margin-top: 0;
+  }
+
+  /* 响应式设计 */
+  @media screen and (max-width: 768px) {
+    .doc-content {
+      padding: 1rem;
+    }
+
+    .content-header h1 {
+      font-size: 2rem;
+    }
+
+    .content-body h1 {
+      font-size: 1.75rem;
+    }
+
+    .content-body h2 {
+      font-size: 1.4rem;
+    }
+
+    .content-body h3 {
+      font-size: 1.2rem;
+    }
+  }
+</style>

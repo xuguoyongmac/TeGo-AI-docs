@@ -23,22 +23,22 @@ import Layout from '../layouts/Layout.astro';
       <div class="hero-visual">
         <div class="platform-showcase">
           <div class="main-platform">
-            <img src="/src/assets/productImage/de1638a41e7f151958a583bb060c109e.jpeg" alt="TeGo-AI 平台概览" class="main-screenshot" />
+            <img src="/productImage/de1638a41e7f151958a583bb060c109e.jpeg" alt="TeGo-AI 平台概览" class="main-screenshot" />
             <div class="platform-glow"></div>
           </div>
 
           <div class="floating-modules">
             <div class="module module-1">
-              <img src="/src/assets/lmn.jpeg" alt="功能模块1" />
+              <img src="/lmn.jpeg" alt="功能模块1" />
             </div>
             <div class="module module-2">
-              <img src="/src/assets/hijk.jpeg" alt="功能模块2" />
+              <img src="/hijk.jpeg" alt="功能模块2" />
             </div>
             <div class="module module-3">
-              <img src="/src/assets/efg.jpeg" alt="功能模块3" />
+              <img src="/efg.jpeg" alt="功能模块3" />
             </div>
             <div class="module module-4">
-              <img src="/src/assets/abcd.jpeg" alt="功能模块4" />
+              <img src="/abcd.jpeg" alt="功能模块4" />
             </div>
           </div>
         </div>
@@ -48,79 +48,90 @@ import Layout from '../layouts/Layout.astro';
 
   <!-- 核心功能展示 -->
   <div class="core-features">
-          <div class="section-header">
-        <h2>核心功能</h2>
-        <p>四大创新模块，重新定义 AI 基础设施</p>
-        <a href="/product-intro/features" class="more-link">查看更多 →</a>
+    <div class="section-header">
+      <h2>核心功能</h2>
+      <p>四大创新模块，重新定义 AI 基础设施</p>
+      <a href="/product-intro/features" class="more-link">查看更多 →</a>
+    </div>
+    
+    <!-- 流畅紧凑布局 -->
+    <div class="feature-flow-layout">
+      <!-- 主要功能区域 -->
+      <div class="feature-main-section">
+                  <div class="feature-main-item">
+            <div class="feature-icon">
+              <img src="/manager.png" alt="智能实例管理" class="feature-icon-img" />
+            </div>
+            <div class="feature-content">
+              <h3>智能实例管理</h3>
+              <p>基于向量化技术对服务器实例多维度建模，实现拓扑感知调度，提升资源利用率与成本效益。</p>
+              <div class="feature-tags" style="display: flex !important; flex-wrap: wrap !important; gap: 1.2rem !important; justify-content: center !important;">
+                <span style="background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important; color: white !important; padding: 0.32rem 0.64rem !important; border-radius: 16px !important; font-size: 0.8rem !important; font-weight: 600 !important;">资源利用率提升100%</span>
+                <span style="background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important; color: white !important; padding: 0.32rem 0.64rem !important; border-radius: 16px !important; font-size: 0.8rem !important; font-weight: 600 !important;">30+维度向量化</span>
+                <span style="background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important; color: white !important; padding: 0.32rem 0.64rem !important; border-radius: 16px !important; font-size: 0.8rem !important; font-weight: 600 !important;">拓扑感知调度</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-main-item">
+            <div class="feature-icon">
+              <img src="/zidongshengcheng.png" alt="MCP服务自动化生成" class="feature-icon-img" />
+            </div>
+            <div class="feature-content">
+              <h3>MCP 服务自动化生成</h3>
+              <p>基于 OpenAPI 等规范自动生成 MCP 服务，无缝接入企业存量系统，降低生态构建成本。</p>
+              <div class="feature-tags" style="display: flex !important; flex-wrap: wrap !important; gap: 1.2rem !important; justify-content: center !important;">
+                <span style="background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important; color: white !important; padding: 0.32rem 0.64rem !important; border-radius: 16px !important; font-size: 0.8rem !important; font-weight: 600 !important;">30分钟上线</span>
+                <span style="background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important; color: white !important; padding: 0.32rem 0.64rem !important; border-radius: 16px !important; font-size: 0.8rem !important; font-weight: 600 !important;">零代码接入</span>
+                <span style="background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important; color: white !important; padding: 0.32rem 0.64rem !important; border-radius: 16px !important; font-size: 0.8rem !important; font-weight: 600 !important;">自动生成</span>
+              </div>
+            </div>
+          </div>
       </div>
-      
-      <div class="features-grid">
-        <a href="/product-intro/features" class="feature-card">
-          <div class="feature-header">
-            <div class="feature-icon">🚀</div>
-            <h3>智能实例管理</h3>
-          </div>
-          <p>基于向量化技术对服务器实例多维度建模，实现拓扑感知调度，提升资源利用率与成本效益。</p>
-          <div class="feature-screenshot">
-            <img src="/src/assets/productImage/image_20250818170911_128.png" alt="智能实例管理" />
-          </div>
-        </a>
 
-        <a href="/product-intro/features" class="feature-card">
-          <div class="feature-header">
-            <div class="feature-icon">🔒</div>
-            <h3>服务动态发现与组合</h3>
+      <!-- 其他功能区域 -->
+              <div class="feature-other-section">
+          <div class="feature-other-item">
+            <div class="feature-icon">
+              <img src="/fuwudtongtai.png" alt="服务动态发现与组合" class="feature-icon-img" />
+            </div>
+            <div class="feature-content">
+              <h4>服务动态发现与组合</h4>
+              <p>通过 MCP 服务注册中心，AI Agent 可实时发现并组合工具，自主完成复杂任务。</p>
+            </div>
           </div>
-          <p>通过 MCP 服务注册中心，AI Agent 可实时发现并组合工具，自主完成复杂任务，突破传统硬编码限制。</p>
-          <div class="feature-screenshot">
-            <img src="/src/assets/productImage/image_20250818170911_129.png" alt="服务动态发现" />
+          
+          <div class="feature-other-item">
+            <div class="feature-icon">
+              <img src="/UIdongtaishengc.png" alt="运行时UI动态生成" class="feature-icon-img" />
+            </div>
+            <div class="feature-content">
+              <h4>运行时 UI 动态生成</h4>
+              <p>支持 MCP Elicitation 机制，按需生成交互界面，优化人机协作效率。</p>
+            </div>
           </div>
-        </a>
-
-        <a href="/product-intro/features" class="feature-card">
-          <div class="feature-header">
-            <div class="feature-icon">📊</div>
-            <h3>MCP 服务自动化生成</h3>
+          
+          <div class="feature-other-item">
+            <div class="feature-icon">
+              <img src="/fuwuwangguan.png" alt="LLM网关" class="feature-icon-img" />
+            </div>
+            <div class="feature-content">
+              <h4>LLM网关</h4>
+              <p>集成主流大模型与本地模型，支持语义理解、文生图、RAG等智能交互。</p>
+            </div>
           </div>
-          <p>基于 OpenAPI 等规范自动生成 MCP 服务，无缝接入企业存量系统，降低生态构建成本。</p>
-          <div class="feature-screenshot">
-            <img src="/src/assets/productImage/image_20250818170911_130.png" alt="MCP服务自动化" />
+          
+          <div class="feature-other-item">
+            <div class="feature-icon">
+              <img src="/liuchengyinqin.png" alt="流程引擎与数据总线" class="feature-icon-img" />
+            </div>
+            <div class="feature-content">
+              <h4>流程引擎与数据总线</h4>
+              <p>实现数据追踪、任务编排、触发逻辑等业务自动化能力。</p>
+            </div>
           </div>
-        </a>
-
-        <a href="/product-intro/features" class="feature-card">
-          <div class="feature-header">
-            <div class="feature-icon">🎯</div>
-            <h3>运行时 UI 动态生成</h3>
-          </div>
-          <p>支持 MCP Elicitation 机制，按需生成交互界面，优化人机协作效率。</p>
-          <div class="feature-screenshot">
-            <img src="/src/assets/productImage/image_20250818170911_131.png" alt="运行时UI生成" />
-          </div>
-        </a>
-
-        <a href="/product-intro/features" class="feature-card">
-          <div class="feature-header">
-            <div class="feature-icon">🌐</div>
-            <h3>LLM网关</h3>
-          </div>
-          <p>集成主流大模型与本地模型，支持语义理解、文生图、RAG等智能交互，提供强大的AI能力支撑。</p>
-          <div class="feature-screenshot">
-            <img src="/src/assets/productImage/image_20250818170911_132.png" alt="LLM网关" />
-          </div>
-        </a>
-
-        <a href="/product-intro/features" class="feature-card">
-          <div class="feature-header">
-            <div class="feature-icon">⚙️</div>
-            <h3>流程引擎与数据总线</h3>
-          </div>
-          <p>实现数据追踪、任务编排、触发逻辑等业务自动化能力，确保业务流程的智能化执行与监控。</p>
-          <div class="feature-screenshot">
-            <img src="/src/assets/productImage/image_20250818170911_133.png" alt="流程引擎" />
-          </div>
-        </a>
-      </div>
+        </div>
+    </div>
   </div>
 
   <!-- 技术优势 -->
@@ -131,30 +142,53 @@ import Layout from '../layouts/Layout.astro';
         <a href="/product-intro/architecture" class="more-link">查看更多 →</a>
       </div>
       
-      <div class="advantages-grid">
-        <div class="advantage-item">
-          <div class="advantage-number">01</div>
-          <h4>零代码接入</h4>
-          <p>基于 OpenAPI/Swagger 自动把现有 REST 服务封装成 MCP Server，实现30分钟上线。</p>
+      <div class="tech-advantages-banner">
+        <div class="tech-banner-main">
+          <div class="tech-banner-content">
+            <h3>零代码接入</h3>
+            <p>基于 OpenAPI/Swagger 自动把现有 REST 服务封装成 MCP Server，实现30分钟上线。</p>
+            <div class="tech-banner-highlight">30分钟上线</div>
+          </div>
+          <div class="tech-banner-visual">
+            <div class="tech-banner-icon">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+              </svg>
+            </div>
+          </div>
         </div>
         
-        <div class="advantage-item">
-          <div class="advantage-number">02</div>
-          <h4>拓扑感知调度</h4>
-          <p>把实例 CPU/内存/地域/成本等 30+ 维度向量化，动态匹配任务，资源利用率提升 100%。</p>
-        </div>
-        
-        <div class="advantage-item">
-          <div class="advantage-number">03</div>
-          <h4>实时服务发现</h4>
-          <p>MCP 注册中心让 AI Agent 像"冲浪"一样即时发现/组合工具，无需硬编码即可无限扩展</p>
-        </div>
-        
-        <div class="advantage-item">
-          <div class="advantage-number">04</div>
-          <h4>运行时 UI</h4>
-          <p>MCP-Elicitation 把 JSON-Schema 秒变交互表单，5 秒响应需求变更，彻底告别前端排期。</p>
-        </div>
+                  <div class="tech-advantages-entries">
+            <div class="tech-entry">
+              <div class="tech-entry-icon">
+                <img src="/tuopuganzhi.png" alt="拓扑感知调度" class="tech-entry-icon-img" />
+              </div>
+              <div class="tech-entry-content">
+                <h4>拓扑感知调度</h4>
+                <p>30+ 维度向量化，资源利用率提升 100%</p>
+              </div>
+            </div>
+            
+            <div class="tech-entry">
+              <div class="tech-entry-icon">
+                <img src="/shishifaxian.png" alt="实时服务发现" class="tech-entry-icon-img" />
+              </div>
+              <div class="tech-entry-content">
+                <h4>实时服务发现</h4>
+                <p>AI Agent 像"冲浪"一样即时发现/组合工具</p>
+              </div>
+            </div>
+            
+            <div class="tech-entry">
+              <div class="tech-entry-icon">
+                <img src="/UIdongtaishengc.png" alt="运行时UI" class="tech-entry-icon-img" />
+              </div>
+              <div class="tech-entry-content">
+                <h4>运行时 UI</h4>
+                <p>JSON-Schema 秒变交互表单，5 秒响应需求变更</p>
+              </div>
+            </div>
+          </div>
       </div>
   </div>
 
@@ -165,53 +199,65 @@ import Layout from '../layouts/Layout.astro';
       <p>适用于以下行业和场景</p>
     </div>
       
-      <div class="scenarios-grid">
-        <div class="scenario-card">
-          <div class="scenario-icon">
-            <img src="/src/assets/zhinengyuny.jpeg" alt="全域智能运营" class="scenario-icon-img" />
+      <div class="scenarios-elegant">
+        <div class="scenario-elegant-item">
+          <div class="scenario-elegant-image">
+            <img src="/zhinengyuny.jpeg" alt="全域智能运营" />
+            <div class="scenario-elegant-overlay">
+              <h3>全域智能运营</h3>
+              <p>驱动企业流程自治，重塑管理效率巅峰</p>
+            </div>
           </div>
-          <h4>全域智能运营</h4>
-          <p>驱动企业流程自治，重塑管理效率巅峰</p>
         </div>
         
-        <div class="scenario-card">
-          <div class="scenario-icon">
-            <img src="/src/assets/shujuzichan.jpeg" alt="数据资产对话化" class="scenario-icon-img" />
+        <div class="scenario-elegant-item">
+          <div class="scenario-elegant-image">
+            <img src="/shujuzichan.jpeg" alt="数据资产对话化" />
+            <div class="scenario-elegant-overlay">
+              <h3>数据资产对话化</h3>
+              <p>为数据驱动的决策提供强有力的支持，让数据秒变决策智慧</p>
+            </div>
           </div>
-          <h4>数据资产对话化</h4>
-          <p>为数据驱动的决策提供强有力的支持，让数据秒变决策智慧，构筑竞争壁垒</p>
         </div>
         
-        <div class="scenario-card">
-          <div class="scenario-icon">
-            <img src="/src/assets/xietong.jpeg" alt="无界业务协同" class="scenario-icon-img" />
+        <div class="scenario-elegant-item">
+          <div class="scenario-elegant-image">
+            <img src="/xietong.jpeg" alt="无界业务协同" />
+            <div class="scenario-elegant-overlay">
+              <h3>无界业务协同</h3>
+              <p>打破系统孤岛，构建跨组织一体化运营新范式</p>
+            </div>
           </div>
-          <h4>无界业务协同</h4>
-          <p>打破系统孤岛，构建跨组织一体化运营新范式</p>
         </div>
         
-        <div class="scenario-card">
-          <div class="scenario-icon">
-            <img src="/src/assets/jingxihuaziyun.jpeg" alt="云资源精细治理" class="scenario-icon-img" />
+        <div class="scenario-elegant-item">
+          <div class="scenario-elegant-image">
+            <img src="/jingxihuaziyun.jpeg" alt="云资源精细治理" />
+            <div class="scenario-elegant-overlay">
+              <h3>云资源精细治理</h3>
+              <p>以 AI-FINOPS 实现算力与成本的最优解</p>
+            </div>
           </div>
-          <h4>云资源精细治理</h4>
-          <p>以 AI-FINOPS 实现算力与成本的最优解</p>
         </div>
         
-        <div class="scenario-card">
-          <div class="scenario-icon">
-            <img src="/src/assets/shuzizhuanx.jpeg" alt="极简数字转型" class="scenario-icon-img" />
+        <div class="scenario-elegant-item">
+          <div class="scenario-elegant-image">
+            <img src="/shuzizhuanx.jpeg" alt="极简数字转型" />
+            <div class="scenario-elegant-overlay">
+              <h3>极简数字转型</h3>
+              <p>零改动接入存量系统，一键跃迁智能化</p>
+            </div>
           </div>
-          <h4>极简数字转型</h4>
-          <p>零改动接入存量系统，一键跃迁智能化</p>
         </div>
         
-        <div class="scenario-card">
-          <div class="scenario-icon">
-            <img src="/src/assets/juece.jpeg" alt="人机共生决策" class="scenario-icon-img" />
+        <div class="scenario-elegant-item">
+          <div class="scenario-elegant-image">
+            <img src="/juece.jpeg" alt="人机共生决策" />
+            <div class="scenario-elegant-overlay">
+              <h3>人机共生决策</h3>
+              <p>动态 UI 实时交互，释放人类创造力与 AI 算力的乘数效应</p>
+            </div>
           </div>
-          <h4>人机共生决策</h4>
-          <p>动态 UI 实时交互，释放人类创造力与 AI 算力的乘数效应</p>
         </div>
       </div>
   </div>
@@ -238,6 +284,7 @@ import Layout from '../layouts/Layout.astro';
 
   .hero-text {
     text-align: left;
+    margin-left: 80px;
   }
 
 
@@ -410,7 +457,7 @@ import Layout from '../layouts/Layout.astro';
 
   /* 核心功能 */
   .core-features {
-    padding: 0.5rem 0;
+    padding: 0.5rem 0 3rem 0;
     background: #f8fafc;
     position: relative;
   }
@@ -418,20 +465,29 @@ import Layout from '../layouts/Layout.astro';
   .core-features::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -1rem;
     left: 0;
     right: 0;
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3), transparent);
+    z-index: 1;
   }
 
 
 
   .core-features .section-header,
-  .tech-advantages .section-header,
   .application-scenarios .section-header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 0.1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: none !important;
+  }
+
+  .tech-advantages .section-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -474,6 +530,164 @@ import Layout from '../layouts/Layout.astro';
 
   .more-link:hover {
     color: #1d4ed8;
+  }
+
+  /* 流畅紧凑布局 */
+  .feature-flow-layout {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* 主要功能区域 */
+  .feature-main-section {
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 2rem;
+    padding: 2rem 0;
+    border-bottom: 2px solid rgba(59, 130, 246, 0.1);
+  }
+
+  .feature-main-item {
+    flex: 1;
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.03), rgba(139, 92, 246, 0.03));
+    border-radius: 12px;
+    border-left: 4px solid #3b82f6;
+    transition: all 0.3s ease;
+  }
+
+  .feature-main-item:hover {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.08));
+    transform: translateX(8px);
+  }
+
+  .feature-main-item .feature-icon {
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+    transition: all 0.3s ease;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+  }
+
+  .feature-main-item .feature-icon-img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+  }
+
+  .feature-main-item:hover .feature-icon {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15));
+    border-color: rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+  }
+
+  .feature-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .feature-content h3 {
+    margin: 0 0 1rem 0;
+    color: #1e293b;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .feature-content p {
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .feature-tags {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 1.2rem !important;
+    justify-content: center !important;
+  }
+
+  .feature-tags span {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+    color: white !important;
+    padding: 0.32rem 0.64rem !important;
+    border-radius: 16px !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+  }
+
+  /* 其他功能区域 */
+  .feature-other-section {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+
+  .feature-other-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1.2rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    border-left: 3px solid rgba(59, 130, 246, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .feature-other-item:hover {
+    background: rgba(59, 130, 246, 0.05);
+    transform: translateX(4px);
+    border-left-color: #3b82f6;
+  }
+
+  .feature-other-item .feature-icon {
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(59, 130, 246, 0.15);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .feature-other-item .feature-icon-img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+  }
+
+  .feature-other-item .feature-content h4 {
+    margin: 0 0 0.5rem 0;
+    color: #1e293b;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .feature-other-item .feature-content p {
+    margin: 0;
+    color: #64748b;
+    line-height: 1.5;
+    font-size: 0.9rem;
   }
 
   .features-grid {
@@ -561,7 +775,7 @@ import Layout from '../layouts/Layout.astro';
 
   /* 技术优势 */
   .tech-advantages {
-    padding: 2rem 0 3rem 0;
+    padding: 4rem 0 3rem 0;
     background: #f8fafc;
     position: relative;
   }
@@ -569,7 +783,7 @@ import Layout from '../layouts/Layout.astro';
   .tech-advantages::after {
     content: '';
     position: absolute;
-    bottom: -1rem;
+    bottom: -0.5rem;
     left: 0;
     right: 0;
     height: 1px;
@@ -579,51 +793,194 @@ import Layout from '../layouts/Layout.astro';
 
 
 
-  .advantages-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
+  /* 技术优势Banner布局 */
+  .tech-advantages-banner {
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 2rem;
   }
 
-  .advantage-item {
-    background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 16px;
+  /* 主要Banner区域 */
+  .tech-banner-main {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tech-banner-main::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(59,130,246,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
+  }
+
+  .tech-banner-content {
+    flex: 1;
+    position: relative;
+    z-index: 2;
+  }
+
+  .tech-banner-content h3 {
+    color: #1e293b;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .tech-banner-content p {
+    color: #64748b;
+    line-height: 1.6;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tech-banner-highlight {
+    display: inline-block;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+  }
+
+  .tech-banner-visual {
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  .tech-banner-icon {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 12px 30px rgba(59, 130, 246, 0.4);
+    animation: pulse 2s infinite;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tech-banner-icon svg {
+    width: 50px;
+    height: 50px;
+    color: white;
+  }
+
+  .tech-banner-icon::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: shine 3s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  @keyframes shine {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+  }
+
+  /* 技术优势小入口 */
+  .tech-advantages-entries {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .tech-entry {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 14px;
     padding: 2rem;
     text-align: center;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
   }
 
-  .advantage-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    border-color: #3b82f6;
+  .tech-entry::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.05));
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
 
-  .advantage-number {
-    font-size: 3rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .tech-entry:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  }
+
+  .tech-entry:hover::before {
+    opacity: 1;
+  }
+
+  .tech-entry-icon {
     margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.08));
+    border-radius: 12px;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    margin: 0 auto 1rem;
+    transition: all 0.3s ease;
   }
 
-  .advantage-item h4 {
+  .tech-entry-icon-img {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+  }
+
+  .tech-entry:hover .tech-entry-icon {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(139, 92, 246, 0.12));
+    border-color: rgba(59, 130, 246, 0.3);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.15);
+  }
+
+  .tech-entry-content h4 {
     color: #1e293b;
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 600;
+    margin-bottom: 0.5rem;
   }
 
-  .advantage-item p {
+  .tech-entry-content p {
     color: #64748b;
-    line-height: 1.6;
+    line-height: 1.4;
+    font-size: 0.85rem;
+    margin: 0;
   }
 
   /* 应用场景 */
@@ -633,73 +990,82 @@ import Layout from '../layouts/Layout.astro';
     position: relative;
   }
 
-  .application-scenarios::after {
-    content: '';
-    position: absolute;
-    bottom: -1rem;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3), transparent);
-    z-index: 1;
-  }
 
 
 
-  .scenarios-grid {
+
+  .scenarios-elegant {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 2rem;
   }
 
-  .scenario-card {
+  .scenario-elegant-item {
     background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 20px;
-    padding: 2.5rem;
-    text-align: center;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid #f1f5f9;
   }
 
-  .scenario-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    border-color: #3b82f6;
+  .scenario-elegant-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.2);
   }
 
-  .scenario-icon {
-    margin-bottom: 1.5rem;
-    display: flex;
-    justify-content: center;
+  .scenario-elegant-image {
+    width: 100%;
+    height: 140px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 16px;
   }
 
-  .scenario-icon-img {
-    width: 180px;
-    height: 180px;
+  .scenario-elegant-image img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    border-radius: 20px;
-    box-shadow: 0 16px 40px rgba(59, 130, 246, 0.25);
     transition: transform 0.3s ease;
   }
 
-  .scenario-card:hover .scenario-icon-img {
+  .scenario-elegant-item:hover .scenario-elegant-image img {
     transform: scale(1.05);
   }
 
-  .scenario-card h4 {
-    margin: 0 0 1rem 0;
-    color: #1e293b;
-    font-size: 1.4rem;
-    font-weight: 600;
+  .scenario-elegant-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: white;
+    padding: 1rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
   }
 
-  .scenario-card p {
-    color: #64748b;
-    line-height: 1.6;
+  .scenario-elegant-item:hover .scenario-elegant-overlay {
+    transform: translateY(0);
+  }
+
+  .scenario-elegant-overlay h3 {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 0.3rem 0;
+    line-height: 1.3;
+  }
+
+  .scenario-elegant-overlay p {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.4;
+    font-size: 0.85rem;
+    margin: 0;
   }
 
   /* 响应式设计 */
@@ -731,6 +1097,170 @@ import Layout from '../layouts/Layout.astro';
 
     .module {
       display: none;
+    }
+
+    /* 流畅紧凑布局的响应式设计 */
+    .feature-flow-layout {
+      padding: 0 1rem;
+    }
+
+    .feature-main-section {
+      flex-direction: column;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .feature-main-item {
+      padding: 1.2rem;
+    }
+
+    .feature-main-item .feature-icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    .feature-main-item .feature-icon-img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .feature-content h3 {
+      font-size: 1.3rem;
+    }
+
+    .feature-content p {
+      font-size: 0.9rem;
+    }
+
+    .feature-tags span {
+      font-size: 0.75rem !important;
+      padding: 0.24rem 0.48rem !important;
+    }
+
+    .feature-other-section {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .feature-other-item {
+      padding: 1rem;
+    }
+
+    .feature-other-item .feature-icon {
+      font-size: 1.5rem;
+    }
+
+    .feature-other-item .feature-content h4 {
+      font-size: 1rem;
+    }
+
+    .feature-other-item .feature-content p {
+      font-size: 0.8rem;
+    }
+
+    /* 技术优势Banner响应式 */
+    .tech-banner-main {
+      flex-direction: column;
+      text-align: center;
+      gap: 1.5rem;
+      padding: 1.5rem;
+    }
+
+    .tech-banner-content h3 {
+      font-size: 1.8rem;
+    }
+
+    .tech-banner-content p {
+      font-size: 1rem;
+    }
+
+    .tech-banner-highlight {
+      padding: 0.6rem 1.2rem;
+      font-size: 0.85rem;
+    }
+
+    .tech-banner-icon {
+      width: 80px;
+      height: 80px;
+    }
+
+    .tech-banner-icon svg {
+      width: 40px;
+      height: 40px;
+    }
+
+    .tech-advantages-entries {
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+    }
+
+    .tech-entry {
+      padding: 1.2rem;
+    }
+
+    .tech-entry-icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    .tech-entry-icon-img {
+      width: 22px;
+      height: 22px;
+    }
+
+    .tech-entry-content h4 {
+      font-size: 1.1rem;
+    }
+
+    .tech-entry-content p {
+      font-size: 0.85rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-title {
+      font-size: 2rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.8rem;
+    }
+
+    .feature-main-card {
+      padding: 2rem;
+    }
+
+    .feature-main-header .feature-icon {
+      font-size: 2.5rem;
+    }
+
+    .feature-main-card h3 {
+      font-size: 1.5rem;
+    }
+
+    .feature-main-card p {
+      font-size: 1rem;
+    }
+
+    .benefit-tag {
+      font-size: 0.8rem;
+      padding: 0.6rem 0.9rem;
+    }
+
+    .feature-secondary-item {
+      padding: 1.2rem;
+    }
+
+    .feature-secondary-icon {
+      font-size: 1.4rem;
+    }
+
+    .feature-secondary-content h4 {
+      font-size: 0.95rem;
+    }
+
+    .feature-secondary-content p {
+      font-size: 0.8rem;
     }
   }
 </style>

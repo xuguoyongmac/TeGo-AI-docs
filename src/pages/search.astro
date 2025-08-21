@@ -6,6 +6,14 @@ const query = Astro.url.searchParams.get('q') || '';
 <Layout title={`搜索: ${query} - TeGo-AI 文档中心`}>
   <div class="search-page">
     <div class="search-header">
+      <div class="search-header-top">
+        <a href="/" class="back-button">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          返回首页
+        </a>
+      </div>
       <h1>搜索结果</h1>
       <p>关键词: <span class="search-query">"{query}"</span></p>
     </div>
@@ -73,7 +81,7 @@ const query = Astro.url.searchParams.get('q') || '';
   function highlightText(text: string, query: string) {
     if (!query) return text;
     const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-    return text.replace(regex, '<mark class="highlight">$1</mark>');
+    return text.replace(regex, '<span class="highlight" style="color: #3b82f6 !important;">$1</span>');
   }
 
   // 搜索函数
@@ -139,11 +147,14 @@ const query = Astro.url.searchParams.get('q') || '';
     resultsContainer.innerHTML = `
       <div class="results-count">找到 ${results.length} 个结果</div>
       <div class="results-list">
-        ${results.map(item => `
-          <a href="${item.url}" class="result-item">
-            <h3 class="result-title">${highlightText(item.title, query)}</h3>
-            <p class="result-description">${highlightText(item.description, query)}</p>
-          </a>
+        ${results.map((item, index) => `
+          <div class="result-item" style="text-decoration: none !important; color: #000 !important; padding-bottom: 1.5rem;">
+            <a href="${item.url}" style="text-decoration: underline; color: #000;">
+              <h3 class="result-title" style="text-decoration: underline; color: #000; margin: 0 0 0.5rem 0;">${highlightText(item.title, query)}</h3>
+            </a>
+            <p class="result-description" style="text-decoration: none !important; color: #000 !important;">${highlightText(item.description, query)}</p>
+          </div>
+          ${index < results.length - 1 ? '<div style="height: 1px; background: rgba(0, 0, 0, 0.08); margin: 0 0 1rem 0;"></div>' : ''}
         `).join('')}
       </div>
     `;
@@ -152,16 +163,53 @@ const query = Astro.url.searchParams.get('q') || '';
 
 <style>
   .search-page {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 2rem;
   }
 
   .search-header {
     text-align: center;
-    margin-bottom: 3rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 4rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid;
+    border-image: linear-gradient(90deg, transparent, #3b82f6, #8b5cf6, transparent) 1;
+  }
+
+  .search-header-top {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 2rem;
+  }
+
+  .back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .back-button:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    color: #475569;
+    transform: translateY(-1px);
+  }
+
+  .back-button svg {
+    transition: transform 0.2s ease;
+  }
+
+  .back-button:hover svg {
+    transform: translateX(-2px);
   }
 
   .search-header h1 {
@@ -180,30 +228,39 @@ const query = Astro.url.searchParams.get('q') || '';
     color: #64748b;
     margin-bottom: 2rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid;
+    border-image: linear-gradient(90deg, transparent, #3b82f6, #8b5cf6, transparent) 1;
   }
 
   .results-list {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 2.5rem;
   }
 
   .result-item {
     display: block;
-    padding: 1rem 0;
+    padding: 1.5rem 0;
     text-decoration: none !important;
-    color: #1e293b;
-    border-bottom: 1px solid #f1f5f9;
+    color: #000 !important;
+    border-bottom: 1px solid;
+    border-image: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3), transparent) 1;
     transition: background-color 0.2s ease;
   }
 
   .result-item:hover {
     text-decoration: none !important;
+    color: #000 !important;
   }
 
   .result-item:visited {
     text-decoration: none !important;
+    color: #000 !important;
+  }
+
+  .result-item:link {
+    text-decoration: none !important;
+    color: #000 !important;
   }
 
   .result-item:last-child {
@@ -217,13 +274,13 @@ const query = Astro.url.searchParams.get('q') || '';
   .result-title {
     font-size: 1.1rem;
     font-weight: 600;
-    color: #1e293b;
+    color: #000 !important;
     margin: 0 0 0.5rem 0;
     text-decoration: none !important;
   }
 
   .result-description {
-    color: #1e293b;
+    color: #000 !important;
     margin: 0;
     line-height: 1.5;
     font-size: 0.9rem;
@@ -231,11 +288,13 @@ const query = Astro.url.searchParams.get('q') || '';
   }
 
   .highlight {
-    background: #dbeafe;
-    color: #1e40af;
-    padding: 0.1rem 0.2rem;
-    border-radius: 3px;
-    font-weight: 600;
+    color: #3b82f6 !important;
+    background: none !important;
+  }
+
+  .result-button:hover {
+    background: rgba(59, 130, 246, 0.2) !important;
+    border-color: rgba(59, 130, 246, 0.4) !important;
   }
 
   .no-query, .no-results {

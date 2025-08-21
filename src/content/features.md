@@ -1,4 +1,4 @@
-# TeGo-AI 核心功能详解 {#overview}
+# TeGo-AI 核心功能 {#overview}
 
 TeGo-AI 智能体管理平台通过四大核心创新模块，重新定义 AI 基础设施，为企业提供高效、敏捷的 AI 能力。
 

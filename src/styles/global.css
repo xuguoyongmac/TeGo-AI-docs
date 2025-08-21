@@ -58,8 +58,7 @@ body {
 /* 侧边栏样式 */
 .sidebar {
   width: 280px;
-  background: var(--bg-primary);
-  border-right: 1px solid var(--border-color);
+  background: var(--bg-secondary);
   position: sticky;
   top: 0;
   height: 100vh;
@@ -69,6 +68,10 @@ body {
 
 .sidebar-content {
   padding: 2rem 1.5rem;
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  margin: 0.5rem;
+  box-shadow: var(--shadow-md);
 }
 
 .sidebar-title {
@@ -77,7 +80,6 @@ body {
   color: var(--text-primary);
   margin-bottom: 1.5rem;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--primary-color);
 }
 
 .toc-list {
@@ -113,7 +115,7 @@ body {
 /* 主内容区域 */
 .main-content {
   flex: 1;
-  padding: 2rem;
+  padding: 0.5rem;
 }
 
 .content-wrapper {
@@ -121,7 +123,7 @@ body {
   margin: 0 auto;
   background: var(--bg-primary);
   border-radius: var(--radius-lg);
-  padding: 3rem;
+  padding: 2rem;
   box-shadow: var(--shadow-md);
 }
 
@@ -157,7 +159,6 @@ body {
   color: var(--text-primary);
   margin-bottom: 1rem;
   padding-bottom: 1rem;
-  border-bottom: 3px solid var(--primary-color);
 }
 
 .markdown-content h2 {
@@ -234,7 +235,6 @@ body {
   border: 1px solid #bae6fd;
   border-radius: var(--radius-lg);
   padding: 1.5rem;
-  border-left: 4px solid var(--primary-color);
 }
 
 .highlight-box h4 {
@@ -284,7 +284,7 @@ body {
 .btn-secondary {
   background: transparent;
   color: var(--primary-color);
-  border: 2px solid var(--primary-color);
+  border: 2px solid var(--border-color);
 }
 
 .btn-secondary:hover {
@@ -335,12 +335,12 @@ body {
     width: 100%;
     height: auto;
     position: static;
-    border-right: none;
     border-bottom: 1px solid var(--border-color);
   }
 
   .sidebar-content {
     padding: 1rem;
+    margin: 0.25rem;
   }
 
   .toc-list {
@@ -357,11 +357,11 @@ body {
 
 @media screen and (max-width: 768px) {
   .main-content {
-    padding: 1rem;
+    padding: 0.25rem;
   }
 
   .content-wrapper {
-    padding: 2rem;
+    padding: 1rem;
   }
 
   .markdown-content h1 {

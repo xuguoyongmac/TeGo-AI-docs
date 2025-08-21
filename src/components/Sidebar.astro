@@ -46,91 +46,95 @@ const { title, items } = Astro.props;
 
     // 平滑滚动到锚点
     tocLinks.forEach(link => {
-      link.addEventListener('click', function(e) {
+      link.addEventListener('click', function(this: HTMLAnchorElement, e: Event) {
         e.preventDefault();
         const href = this.getAttribute('href');
         const targetId = href ? href.substring(1) : '';
-        console.log('Clicking link:', href, 'targetId:', targetId);
         
         const targetElement = document.getElementById(targetId);
         if (targetElement) {
           const elementOffsetTop = (targetElement as HTMLElement).offsetTop;
           const navbar = document.querySelector('.navbar') as HTMLElement;
           const navbarHeight = navbar ? navbar.offsetHeight : 88;
-          const offsetTop = elementOffsetTop - 150;
+          const offsetTop = elementOffsetTop - navbarHeight - 50; // 调整偏移量
           
-          console.log('Click jump debug:', {
-            targetId,
-            elementOffsetTop,
-            navbarHeight,
-            calculatedOffset: offsetTop,
-            currentScrollTop: window.pageYOffset,
-            elementRect: targetElement.getBoundingClientRect()
-          });
-          
-          window.scrollTo({
-            top: offsetTop,
-            behavior: 'smooth'
-          });
-          history.pushState(null, '', '#' + targetId);
-          
-          // 手动更新活动状态
-          tocLinks.forEach(l => l.classList.remove('active'));
-          (this as HTMLAnchorElement).classList.add('active');
-        } else {
-          console.log('Target element not found:', targetId);
+                  // 设置滚动标志，防止中间状态被选中
+        isScrollingToTarget = true;
+        
+        // 手动更新活动状态，立即选中目标
+        tocLinks.forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+        lastActiveSection = targetId;
+        
+        // 滚动到目标位置
+        window.scrollTo({
+          top: offsetTop,
+          behavior: 'smooth'
+        });
+        history.pushState(null, '', '#' + targetId);
+        
+        // 滚动完成后重置标志
+        setTimeout(() => {
+          isScrollingToTarget = false;
+        }, 1000); // 给滚动动画足够的时间
         }
       });
     });
 
     // 滚动监听，更新活动链接
     let lastActiveSection = '';
+    let isScrollingToTarget = false;
     
     function updateActiveLink() {
-      let current = '';
-      const viewportHeight = window.innerHeight;
+      // 如果正在滚动到目标位置，不更新活动状态
+      if (isScrollingToTarget) {
+        return;
+      }
       const scrollTop = window.pageYOffset;
-
-      console.log('Sections found:', sections.length);
-      console.log('Viewport height:', viewportHeight, 'Scroll top:', scrollTop);
+      const navbar = document.querySelector('.navbar') as HTMLElement;
+      const navbarHeight = navbar ? navbar.offsetHeight : 88;
+      const offset = navbarHeight + 100; // 增加偏移量，避免选中过早
       
-      // 找到当前在视口中的章节
       let currentSection = null;
       
-      // 从前往后查找，找到第一个在视口顶部附近的章节
-      for (let i = 0; i < sections.length; i++) {
-        const section = sections[i];
-        const rect = section.getBoundingClientRect();
-        const sectionId = section.getAttribute('id');
-        
-        console.log('Section:', sectionId, 'Top:', rect.top, 'Bottom:', rect.bottom);
-        
-        // 只有当章节标题在视口顶部附近时才选中
-        if (rect.top <= 150 && rect.top >= -50) {
-          currentSection = sectionId;
-          console.log('Found current section:', currentSection, 'Top position:', rect.top);
-          break;
+      // 如果滚动位置在页面顶部，选中第一个章节
+      if (scrollTop < offset) {
+        if (sections.length > 0) {
+          const firstSectionId = sections[0].getAttribute('id');
+          currentSection = firstSectionId;
+        }
+      } else {
+        // 从后往前查找，找到最后一个已经滚动过的章节
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const section = sections[i];
+          const rect = section.getBoundingClientRect();
+          const sectionId = section.getAttribute('id');
+          
+          // 如果章节的顶部已经滚动过了，就选中这个章节
+          if (rect.top <= offset) {
+            currentSection = sectionId;
+            break;
+          }
         }
       }
       
-      current = currentSection || lastActiveSection; // 如果没有找到新章节，保持上一个
+      // 如果没有找到任何章节，保持上一个选中的章节
+      if (!currentSection) {
+        currentSection = lastActiveSection;
+      }
       
       // 只有当章节真正改变时才更新
-      if (current !== lastActiveSection) {
-        lastActiveSection = current;
-        console.log('Section changed to:', current);
+      if (currentSection !== lastActiveSection) {
+        lastActiveSection = currentSection;
         
         tocLinks.forEach(link => {
           link.classList.remove('active');
           const href = link.getAttribute('href');
-          if (href && href === '#' + current) {
+          if (href && href === '#' + currentSection) {
             link.classList.add('active');
-            console.log('Activated link:', href);
           }
         });
       }
-
-      console.log('Current section:', current);
     }
 
             // 节流函数
@@ -152,7 +156,7 @@ const { title, items } = Astro.props;
         // 处理所有锚点链接
         const anchorLinks = document.querySelectorAll('a[href^="#"]');
         anchorLinks.forEach(link => {
-          link.addEventListener('click', function(e) {
+          link.addEventListener('click', function(this: HTMLAnchorElement, e: Event) {
             e.preventDefault();
             const href = this.getAttribute('href');
             if (!href) return;

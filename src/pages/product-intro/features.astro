@@ -6,47 +6,531 @@ import { marked } from 'marked';
 // 读取Markdown内容
 const markdownContent = readFileSync('./src/content/features.md', 'utf-8');
 
+// 调试：输出原始 Markdown 内容的前几行
+console.log('=== 原始 Markdown 内容前 10 行 ===');
+console.log(markdownContent.split('\n').slice(0, 10).join('\n'));
+
+// 配置 marked 选项，确保引用块正确处理
+marked.setOptions({
+  gfm: true, // 启用 GitHub Flavored Markdown
+  breaks: true // 启用换行符支持
+});
+
 // 预处理内容，将 {#id} 格式转换为标准格式
 const processedContent = markdownContent.replace(/\{#([^}]+)\}/g, ' {#$1}');
-let htmlContent = marked(processedContent) as string; // Cast to string for replace method
 
-// 手动添加ID到标题元素
+// 调试：输出处理后的 Markdown 内容
+console.log('=== 处理后的 Markdown 内容前 10 行 ===');
+console.log(processedContent.split('\n').slice(0, 10).join('\n'));
+
+let htmlContent = marked(processedContent) as string;
+
+// 调试：输出转换后的 HTML 内容
+console.log('=== 转换后的 HTML 内容前 20 行 ===');
+console.log(htmlContent.split('\n').slice(0, 20).join('\n'));
+
+// 调试：检查是否包含 blockquote 标签
+console.log('=== 是否包含 blockquote 标签 ===');
+console.log('包含 blockquote:', htmlContent.includes('<blockquote>'));
+console.log('包含 blockquote 的数量:', (htmlContent.match(/<blockquote>/g) || []).length);
+
+// 手动添加ID到标题元素，修复正则表达式
 htmlContent = htmlContent.replace(
-  /<h([1-6])>([^<]*)\s*\{#([^}]+)\}<\/h([1-6])>/g,
+  /<h([1-6])>([^<]*?)\s*\{#([^}]+)\}<\/h([1-6])>/g,
   '<h$1 id="$3">$2</h$1>'
 );
 
-// 侧边栏配置
+// 如果上面的正则没有匹配到，尝试另一种方式
+if (!htmlContent.includes('id="overview"')) {
+  htmlContent = htmlContent.replace(
+    /<h2>概述<\/h2>/g,
+    '<h2 id="overview">概述</h2>'
+  );
+  htmlContent = htmlContent.replace(
+    /<h2>首页<\/h2>/g,
+    '<h2 id="home">首页</h2>'
+  );
+}
+
+// 侧边栏配置 - 根据实际Markdown内容生成
 const sidebarItems = [
   { href: '#overview', text: '概述' },
-  { href: '#smart-instance', text: '智能实例管理' },
-  { href: '#service-discovery', text: '服务动态发现' },
-  { href: '#mcp-generation', text: 'MCP服务生成' },
-  { href: '#runtime-ui', text: '运行时UI生成' },
-  { href: '#llm-gateway', text: 'LLM网关' },
-  { href: '#workflow-engine', text: '流程引擎' },
-  { href: '#data-bus', text: '数据总线' }
+  { href: '#home', text: '首页' },
+  { href: '#agent', text: '智能体' },
+  { href: '#agent-engine', text: '  智能体引擎' },
+  { href: '#agent-market', text: '  智能体市场' },
+  { href: '#agent-management', text: '  智能体管理' },
+  { href: '#mcp', text: 'MCP' },
+  { href: '#mcp-market', text: '  MCP市场' },
+  { href: '#mcp-token', text: '  MCP令牌' },
+  { href: '#mcp-logs', text: '  使用日志' },
+  { href: '#mcp-management', text: '  MCP管理' },
+  { href: '#model-gateway', text: '模型网关' },
+  { href: '#gateway-management', text: '  网关管理' },
+  { href: '#system-management', text: '系统管理' },
+  { href: '#system-settings', text: '  系统设置' },
+  { href: '#user-management', text: '  用户管理' },
+  { href: '#role-permissions', text: '  角色权限' },
+  { href: '#technical-features', text: '技术特性' },
+  { href: '#application-scenarios', text: '应用场景' },
+  { href: '#deployment-methods', text: '部署方式' },
+  { href: '#technical-support', text: '技术支持' }
 ];
 
 // 面包屑配置
 const breadcrumbs = [
   { href: '/', text: '首页' },
   { href: '/product-intro', text: '产品介绍' },
-  { text: '核心功能' }
+  { text: '产品功能' }
 ];
 ---
 
 <DocLayout 
-  title="TeGo-AI 核心功能"
-  description="TeGo-AI 智能体管理平台的核心功能详解，包括智能实例管理、服务动态发现、MCP服务生成等"
+  title="产品功能介绍" 
+  description="深入了解 TeGo-AI 智能体管理平台的核心功能模块和技术特性"
   sidebarTitle="目录"
   sidebarItems={sidebarItems}
   breadcrumbs={breadcrumbs}
 >
-  <div set:html={htmlContent} />
-  
-  <div slot="navigation">
-    <a href="/product-intro" class="nav-link">← 返回产品介绍</a>
-    <a href="/product-intro/architecture" class="nav-link">技术架构 →</a>
+  <div class="features-content">
+    <!-- 直接渲染Markdown内容，不添加任何额外内容 -->
+    <div set:html={htmlContent} />
   </div>
 </DocLayout>
+
+    <style>
+    .features-content {
+      line-height: 1.8;
+      color: var(--text-primary);
+    }
+
+    /* 主标题 */
+    .features-content h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: var(--primary-color);
+      text-align: center;
+      background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* 二级标题 */
+    .features-content h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin: 3rem 0 1.5rem 0;
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 0.5rem;
+      position: relative;
+    }
+
+    .features-content h2::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 1.5rem;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 2px;
+    }
+
+    /* 三级标题 */
+    .features-content h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 2rem 0 1rem 0;
+      color: var(--text-primary);
+      position: relative;
+      padding-left: 1rem;
+      background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, transparent 100%);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    /* 四级标题 */
+    .features-content h4 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 1.5rem 0 0.8rem 0;
+      color: var(--text-primary);
+      background: linear-gradient(90deg, rgba(139, 92, 246, 0.1) 0%, transparent 100%);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      border-left: 3px solid var(--secondary-color);
+    }
+
+    /* 段落样式 */
+    .features-content p {
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* 列表样式 */
+    .features-content ul {
+      margin: 1rem 0;
+      padding-left: 2rem;
+    }
+
+    .features-content li {
+      margin-bottom: 0.8rem;
+      color: var(--text-secondary);
+      position: relative;
+      padding-left: 0.5rem;
+    }
+
+    .features-content li::before {
+      content: "•";
+      color: var(--primary-color);
+      font-weight: bold;
+      position: absolute;
+      left: -1rem;
+    }
+
+    /* 强调文本 */
+    .features-content strong {
+      color: var(--text-primary);
+      font-weight: 600;
+      background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, transparent 100%);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    /* 标题后的段落增强 */
+    .features-content h2 + p,
+    .features-content h3 + p,
+    .features-content h4 + p {
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(59, 130, 246, 0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+
+    .features-content h2 + p::before,
+    .features-content h3 + p::before,
+    .features-content h4 + p::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      border-radius: 12px 12px 0 0;
+    }
+
+    /* 列表项增强样式 */
+    .features-content ul {
+      background: rgba(248, 250, 252, 0.8);
+      border-radius: 8px;
+      padding: 1.5rem 1.5rem 1.5rem 2.5rem;
+      margin: 1rem 0;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .features-content li {
+      background: white;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 6px;
+      border-left: 3px solid var(--primary-color);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      transition: all 0.2s ease;
+    }
+
+    .features-content li:hover {
+      transform: translateX(4px);
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+      border-left-color: var(--secondary-color);
+    }
+
+    .features-content li:last-child {
+      margin-bottom: 0;
+    }
+
+    /* 功能特性高亮 */
+    .features-content strong:contains("功能概述"),
+    .features-content strong:contains("主要功能"),
+    .features-content strong:contains("核心特性") {
+      background: linear-gradient(90deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+      color: var(--primary-color);
+      font-weight: 700;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+
+    /* 响应式设计 */
+    @media screen and (max-width: 768px) {
+      .features-content h1 {
+        font-size: 2rem;
+      }
+      
+      .features-content h2 {
+        font-size: 1.5rem;
+      }
+      
+      .features-content h3 {
+        font-size: 1.3rem;
+      }
+      
+      .features-content blockquote {
+        padding: 1.5rem 1.5rem 1.5rem 2.5rem;
+        margin: 1.5rem 0;
+      }
+      
+      .features-content h2 + p,
+      .features-content h3 + p,
+      .features-content h4 + p {
+        padding: 1rem;
+      }
+      
+      .features-content ul {
+        padding: 1rem 1rem 1rem 2rem;
+      }
+    }
+
+    @media print {
+      .features-content blockquote {
+        background: white;
+        border: 1px solid #ccc;
+        box-shadow: none;
+      }
+      
+      .features-content h2 + p,
+      .features-content h3 + p,
+      .features-content h4 + p {
+        background: white;
+        border: 1px solid #ccc;
+        box-shadow: none;
+      }
+      
+      .features-content ul {
+        background: white;
+        border: 1px solid #ccc;
+      }
+      
+      .features-content li {
+        background: white;
+        border-left: 2px solid #ccc;
+        box-shadow: none;
+      }
+    }
+
+
+  .features-content h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 3rem 0 1.5rem 0;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+    position: relative;
+  }
+
+  .features-content h2::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 1.5rem;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    border-radius: 2px;
+  }
+
+  .features-content h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 2rem 0 1rem 0;
+    color: var(--text-primary);
+    position: relative;
+    padding-left: 1rem;
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, transparent 100%);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+  }
+
+  .features-content h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 1.5rem 0 0.8rem 0;
+    color: var(--text-primary);
+    background: linear-gradient(90deg, rgba(139, 92, 246, 0.1) 0%, transparent 100%);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border-left: 3px solid var(--secondary-color);
+  }
+
+  .features-content p {
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .features-content ul {
+    margin: 1rem 0;
+    padding-left: 2rem;
+  }
+
+  .features-content li {
+    margin-bottom: 0.8rem;
+    color: var(--text-secondary);
+    position: relative;
+    padding-left: 0.5rem;
+  }
+
+  .features-content li::before {
+    content: "•";
+    color: var(--primary-color);
+    font-weight: bold;
+    position: absolute;
+    left: -1rem;
+  }
+
+  .features-content strong {
+    color: var(--text-primary);
+    font-weight: 600;
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, transparent 100%);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  /* 功能模块卡片样式 */
+  .features-content h2 + p,
+  .features-content h3 + p,
+  .features-content h4 + p {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(59, 130, 246, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    position: relative;
+  }
+
+  .features-content h2 + p::before,
+  .features-content h3 + p::before,
+  .features-content h4 + p::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 12px 12px 0 0;
+  }
+
+  /* 列表项增强样式 */
+  .features-content ul {
+    background: rgba(248, 250, 252, 0.8);
+    border-radius: 8px;
+    padding: 1.5rem 1.5rem 1.5rem 2.5rem;
+    margin: 1rem 0;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+  }
+
+  .features-content li {
+    background: white;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 6px;
+    border-left: 3px solid var(--primary-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+  }
+
+  .features-content li:hover {
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+    border-left-color: var(--secondary-color);
+  }
+
+  .features-content li:last-child {
+    margin-bottom: 0;
+  }
+
+  /* 功能特性高亮 */
+  .features-content strong:contains("功能概述"),
+  .features-content strong:contains("主要功能"),
+  .features-content strong:contains("核心特性") {
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+    color: var(--primary-color);
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  /* 响应式设计 */
+  @media screen and (max-width: 768px) {
+    .features-content h1 {
+      font-size: 2rem;
+    }
+    
+    .features-content h2 {
+      font-size: 1.5rem;
+    }
+    
+    .features-content h3 {
+      font-size: 1.3rem;
+    }
+    
+    .features-content blockquote {
+      padding: 1.5rem 1.5rem 1.5rem 2.5rem;
+      margin: 1.5rem 0;
+    }
+    
+    .features-content h2 + p,
+    .features-content h3 + p,
+    .features-content h4 + p {
+      padding: 1rem;
+    }
+    
+    .features-content ul {
+      padding: 1rem 1rem 1rem 2rem;
+    }
+  }
+
+  @media print {
+    .features-content blockquote {
+      background: white;
+      border: 1px solid #ccc;
+      box-shadow: none;
+    }
+    
+    .features-content h2 + p,
+    .features-content h3 + p,
+    .features-content h4 + p {
+      background: white;
+      border: 1px solid #ccc;
+      box-shadow: none;
+    }
+    
+    .features-content ul {
+      background: white;
+      border: 1px solid #ccc;
+    }
+    
+    .features-content li {
+      background: white;
+      border-left: 2px solid #ccc;
+      box-shadow: none;
+    }
+  }
+</style>

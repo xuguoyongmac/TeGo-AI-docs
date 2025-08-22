@@ -44,43 +44,6 @@ const { title, items } = Astro.props;
     console.log('Found tocLinks:', tocLinks.length);
     console.log('Found sections:', sections.length);
 
-    // 平滑滚动到锚点
-    tocLinks.forEach(link => {
-      link.addEventListener('click', function(this: HTMLAnchorElement, e: Event) {
-        e.preventDefault();
-        const href = this.getAttribute('href');
-        const targetId = href ? href.substring(1) : '';
-        
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {
-          const elementOffsetTop = (targetElement as HTMLElement).offsetTop;
-          const navbar = document.querySelector('.navbar') as HTMLElement;
-          const navbarHeight = navbar ? navbar.offsetHeight : 88;
-          const offsetTop = elementOffsetTop - navbarHeight - 50; // 调整偏移量
-          
-                  // 设置滚动标志，防止中间状态被选中
-        isScrollingToTarget = true;
-        
-        // 手动更新活动状态，立即选中目标
-        tocLinks.forEach(l => l.classList.remove('active'));
-        this.classList.add('active');
-        lastActiveSection = targetId;
-        
-        // 滚动到目标位置
-        window.scrollTo({
-          top: offsetTop,
-          behavior: 'smooth'
-        });
-        history.pushState(null, '', '#' + targetId);
-        
-        // 滚动完成后重置标志
-        setTimeout(() => {
-          isScrollingToTarget = false;
-        }, 1000); // 给滚动动画足够的时间
-        }
-      });
-    });
-
     // 滚动监听，更新活动链接
     let lastActiveSection = '';
     let isScrollingToTarget = false;
@@ -97,9 +60,12 @@ const { title, items } = Astro.props;
       
       let currentSection = null;
       
-      // 如果滚动位置在页面顶部，选中第一个章节
+      // 如果滚动位置在页面顶部，选中"概述"或第一个章节
       if (scrollTop < offset) {
-        if (sections.length > 0) {
+        // 优先选中"概述"，如果没有则选中第一个章节
+        if (document.querySelector('.toc-link[href="#overview"]')) {
+          currentSection = 'overview';
+        } else if (sections.length > 0) {
           const firstSectionId = sections[0].getAttribute('id');
           currentSection = firstSectionId;
         }
@@ -137,46 +103,202 @@ const { title, items } = Astro.props;
       }
     }
 
-            // 节流函数
-        let ticking = false;
-        function requestTick() {
-          if (!ticking) {
-            requestAnimationFrame(() => {
-              updateActiveLink();
-              ticking = false;
-            });
-            ticking = true;
-          }
-        }
-      
-        window.addEventListener('scroll', requestTick);
-        updateActiveLink(); // 初始化
+    // 平滑滚动到锚点
+    tocLinks.forEach(link => {
+      link.addEventListener('click', function(this: HTMLAnchorElement, e: Event) {
+        e.preventDefault();
+        const href = this.getAttribute('href');
+        const targetId = href ? href.substring(1) : '';
         
-        // 初始化通用锚点链接处理
-        // 处理所有锚点链接
-        const anchorLinks = document.querySelectorAll('a[href^="#"]');
-        anchorLinks.forEach(link => {
-          link.addEventListener('click', function(this: HTMLAnchorElement, e: Event) {
-            e.preventDefault();
-            const href = this.getAttribute('href');
-            if (!href) return;
-            
-            const targetId = decodeURIComponent(href.substring(1));
+                  // 处理特殊链接（如"概述"、"首页"等）
+          if (targetId === 'overview' || targetId === 'home') {
+            // 查找目标元素
             const targetElement = document.getElementById(targetId);
-            
             if (targetElement) {
-              const elementOffsetTop = (targetElement as HTMLElement).offsetTop;
+              // 计算精确的滚动位置
+              const elementOffsetTop = targetElement.offsetTop;
               const navbar = document.querySelector('.navbar') as HTMLElement;
               const navbarHeight = navbar ? navbar.offsetHeight : 88;
-              const offsetTop = elementOffsetTop - 150;
+              const offsetTop = elementOffsetTop - navbarHeight - 20; // 减少偏移量，让标题更靠近顶部
               
+              // 滚动到目标位置
               window.scrollTo({
                 top: offsetTop,
                 behavior: 'smooth'
               });
-              history.pushState(null, '', href);
+            } else {
+              // 如果找不到元素，则滚动到页面顶部
+              window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+              });
             }
+          
+          // 清除URL中的锚点
+          history.pushState(null, '', window.location.pathname);
+          
+          // 更新活动状态
+          tocLinks.forEach(l => l.classList.remove('active'));
+          this.classList.add('active');
+          lastActiveSection = targetId;
+          
+          return;
+        }
+        
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          const elementOffsetTop = (targetElement as HTMLElement).offsetTop;
+          const navbar = document.querySelector('.navbar') as HTMLElement;
+          const navbarHeight = navbar ? navbar.offsetHeight : 88;
+          const offsetTop = elementOffsetTop - navbarHeight - 50; // 调整偏移量
+          
+          // 设置滚动标志，防止中间状态被选中
+          isScrollingToTarget = true;
+          
+          // 手动更新活动状态，立即选中目标
+          tocLinks.forEach(l => l.classList.remove('active'));
+          this.classList.add('active');
+          lastActiveSection = targetId;
+          
+          // 滚动到目标位置
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
           });
+          history.pushState(null, '', '#' + targetId);
+          
+          // 滚动完成后重置标志
+          setTimeout(() => {
+            isScrollingToTarget = false;
+          }, 1000); // 给滚动动画足够的时间
+        }
+      });
+    });
+
+    // 节流函数
+    let ticking = false;
+    function requestTick() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateActiveLink();
+          ticking = false;
         });
+        ticking = true;
+      }
+    }
+  
+    window.addEventListener('scroll', requestTick);
+    updateActiveLink(); // 初始化
   }
 </script>
+
+<style>
+  /* 侧边栏层级样式优化 - 使用 :global() 确保样式生效 */
+
+  /* 一级菜单样式 */
+  :global(.toc-link[href="#overview"]),
+  :global(.toc-link[href="#home"]),
+  :global(.toc-link[href="#agent"]),
+  :global(.toc-link[href="#mcp"]),
+  :global(.toc-link[href="#model-gateway"]),
+  :global(.toc-link[href="#system-management"]),
+  :global(.toc-link[href="#technical-features"]),
+  :global(.toc-link[href="#application-scenarios"]),
+  :global(.toc-link[href="#deployment-methods"]),
+  :global(.toc-link[href="#technical-support"]) {
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    color: var(--text-primary) !important;
+    border-left: 3px solid transparent !important;
+    padding-left: 1rem !important;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+    margin: 0 !important;
+  }
+
+  /* 一级菜单悬停效果 */
+  :global(.toc-link[href="#overview"]:hover),
+  :global(.toc-link[href="#home"]:hover),
+  :global(.toc-link[href="#agent"]:hover),
+  :global(.toc-link[href="#mcp"]:hover),
+  :global(.toc-link[href="#model-gateway"]:hover),
+  :global(.toc-link[href="#system-management"]:hover),
+  :global(.toc-link[href="#technical-features"]:hover),
+  :global(.toc-link[href="#application-scenarios"]:hover),
+  :global(.toc-link[href="#deployment-methods"]:hover),
+  :global(.toc-link[href="#technical-support"]:hover) {
+    color: var(--primary-color) !important;
+    border-left-color: var(--primary-color) !important;
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, transparent 100%) !important;
+  }
+
+  /* 二级菜单样式 */
+  :global(.toc-link[href*="agent-engine"]),
+  :global(.toc-link[href*="agent-market"]),
+  :global(.toc-link[href*="agent-management"]),
+  :global(.toc-link[href*="mcp-market"]),
+  :global(.toc-link[href*="mcp-token"]),
+  :global(.toc-link[href*="mcp-logs"]),
+  :global(.toc-link[href*="mcp-management"]),
+  :global(.toc-link[href*="gateway-management"]),
+  :global(.toc-link[href*="system-settings"]),
+  :global(.toc-link[href*="user-management"]),
+  :global(.toc-link[href*="role-permissions"]) {
+    padding-left: 1.75rem !important;
+    padding-top: 0.4rem !important;
+    padding-bottom: 0.4rem !important;
+    font-size: 0.9rem !important;
+    color: var(--text-secondary) !important;
+    border-left: 2px solid transparent !important;
+    margin: 0 !important;
+    position: relative !important;
+    margin-left: 0.5rem !important;
+  }
+
+  /* 二级菜单悬停效果 */
+  :global(.toc-link[href*="agent-engine"]:hover),
+  :global(.toc-link[href*="agent-market"]:hover),
+  :global(.toc-link[href*="agent-management"]:hover),
+  :global(.toc-link[href*="mcp-market"]:hover),
+  :global(.toc-link[href*="mcp-token"]:hover),
+  :global(.toc-link[href*="mcp-logs"]:hover),
+  :global(.toc-link[href*="mcp-management"]:hover),
+  :global(.toc-link[href*="gateway-management"]:hover),
+  :global(.toc-link[href*="system-settings"]:hover),
+  :global(.toc-link[href*="user-management"]:hover),
+  :global(.toc-link[href*="role-permissions"]:hover) {
+    color: var(--primary-color) !important;
+    border-left-color: var(--primary-color) !important;
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.05) 0%, transparent 100%) !important;
+  }
+
+  /* 二级菜单前的装饰线 - 已移除，改为纯缩进设计 */
+
+  /* 分组间距 */
+  :global(.toc-link[href="#agent"]),
+  :global(.toc-link[href="#mcp"]),
+  :global(.toc-link[href="#model-gateway"]),
+  :global(.toc-link[href="#system-management"]) {
+    margin-top: 0 !important;
+  }
+
+  /* 覆盖 DocLayout 中的 li margin-bottom */
+  :global(.toc-list li) {
+    margin-bottom: 0 !important;
+  }
+
+  /* 活跃状态样式 */
+  :global(.toc-link.active) {
+    color: var(--primary-color) !important;
+    border-left-color: var(--primary-color) !important;
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, transparent 100%) !important;
+  }
+
+  /* 活跃状态不显示装饰线 */
+
+  /* 侧边栏标题样式 */
+  .sidebar-title {
+    margin-top: 5px !important;
+    margin-bottom: 10px !important;
+  }
+</style>

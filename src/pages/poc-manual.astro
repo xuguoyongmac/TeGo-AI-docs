@@ -185,6 +185,12 @@ import Layout from '../layouts/Layout.astro';
       <p>联系我们的团队，我们将为您定制专属的POC方案</p>
       <a href="/about" class="cta-button">联系我们</a>
     </div>
+    
+    <!-- 导航链接 -->
+    <div class="navigation-links">
+      <a href="/product-intro" class="nav-link">← 返回产品介绍</a>
+      <a href="/product-intro/features" class="nav-link">产品功能详解 →</a>
+    </div>
   </div>
 </Layout>
 
@@ -368,5 +374,31 @@ import Layout from '../layouts/Layout.astro';
     background: #f8fafc;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .navigation-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    background: #3b82f6;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .nav-link:hover {
+    background: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
   }
 </style>

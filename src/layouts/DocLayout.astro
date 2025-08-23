@@ -103,32 +103,7 @@ const { title, description, sidebarTitle, sidebarItems, breadcrumbs } = Astro.pr
       margin: 1.5rem 0 0.8rem 0;
     }
 
-      /* 全局引用块样式 - 适用于所有使用此布局的页面 */
-    :global(.markdown-content blockquote) {
-      position: relative;
-      margin: 0;
-      padding: 0;
-      padding-left: 0.8rem;
-      margin-left: 2rem;
-      background: none;
-      border-radius: 0;
-      border: none;
-      box-shadow: none;
-      font-style: normal;
-      line-height: 1.7;
-      overflow: visible;
-    }
 
-  :global(.markdown-content blockquote::before) {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: linear-gradient(180deg, #3b82f6 0%, #8b5cf6 100%);
-    border-radius: 2px;
-  }
 
   :global(.markdown-content blockquote strong) {
     color: var(--primary-color);
@@ -165,32 +140,48 @@ const { title, description, sidebarTitle, sidebarItems, breadcrumbs } = Astro.pr
       text-indent: 2em;
     }
 
-      /* 所有引用块统一样式 */
+      /* 引用块容器样式 */
     :global(.markdown-content blockquote) {
       position: relative;
-      margin: 0;
-      padding: 0;
-      padding-left: 0.8rem;
+      margin: 1rem 0;
       margin-left: 2rem;
-      background: none;
-      border-radius: 0;
-      border: none;
-      box-shadow: none;
-      font-style: normal;
-      line-height: 1.7;
-      overflow: visible;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(139, 92, 246, 0.08) 100%);
+      border-radius: 5px 5px 5px 5px;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+      overflow: hidden;
     }
 
-  :global(.markdown-content blockquote::before) {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: linear-gradient(180deg, #3b82f6 0%, #8b5cf6 100%);
-    border-radius: 2px;
-  }
+    /* 引用标签样式 */
+    :global(.markdown-content blockquote::before) {
+      content: attr(data-label, "引用");
+      position: absolute;
+      left: -1px;
+      top: -1px;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.9) 0%, rgba(139, 92, 246, 0.8) 100%);
+      color: white;
+      padding: 0.15rem 2.7rem 0.15rem 2.7rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      font-style: normal;
+      line-height: 1;
+      z-index: 1;
+      border-radius: 5px 0 8px 0;
+      box-shadow: 0 1px 3px rgba(59, 130, 246, 0.2);
+      text-align: center;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    /* 引用内容 */
+    :global(.markdown-content blockquote p) {
+      margin: 0;
+      padding: 2rem 1rem 1rem 1rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      font-style: italic;
+      text-align: left;
+    }
 
       /* 功能概述引用的特殊样式 */
     :global(.markdown-content blockquote:has(strong:contains("功能概述"))) {

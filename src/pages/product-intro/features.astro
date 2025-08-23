@@ -19,11 +19,13 @@ marked.setOptions({
 // 预处理内容，将 {#id} 格式转换为标准格式
 const processedContent = markdownContent.replace(/\{#([^}]+)\}/g, ' {#$1}');
 
-// 调试：输出处理后的 Markdown 内容
-console.log('=== 处理后的 Markdown 内容前 10 行 ===');
-console.log(processedContent.split('\n').slice(0, 10).join('\n'));
-
 let htmlContent = marked(processedContent) as string;
+
+// 处理HTML注释中的标签信息，为引用块添加data-label属性
+htmlContent = htmlContent.replace(
+  /<blockquote>([\s\S]*?)<!-- label:([^>]+) -->/g,
+  '<blockquote data-label="$2">$1'
+);
 
 // 调试：输出转换后的 HTML 内容
 console.log('=== 转换后的 HTML 内容前 20 行 ===');

@@ -88,7 +88,7 @@ const { title, description, sidebarTitle, sidebarItems, breadcrumbs } = Astro.pr
       position: relative;
       background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(139, 92, 246, 0.08) 70%, rgba(139, 92, 246, 0.02) 90%, rgba(139, 92, 246, 0) 100%);
       padding: 0.3rem 1rem;
-      border-radius: 8px 0 0 8px;
+      border-radius: 5px 0 0 5px;
       display: block;
       margin-left: 2rem;
       margin-right: 0;
@@ -115,41 +115,17 @@ const { title, description, sidebarTitle, sidebarItems, breadcrumbs } = Astro.pr
     position: relative;
   }
 
-  /* 功能概述前面的竖线 */
-  :global(.markdown-content blockquote strong:contains("功能概述")) {
-    padding-left: 1.2rem;
-  }
-
-  :global(.markdown-content blockquote strong:contains("功能概述")::before) {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 4px;
-    height: 1.2em;
-    background: linear-gradient(180deg, #3b82f6 0%, #8b5cf6 100%);
-    border-radius: 2px;
-  }
-
-      :global(.markdown-content blockquote p) {
-      margin: 0;
-      color: var(--text-secondary);
-      font-size: 1.05rem;
-      padding-left: 0;
-      text-indent: 2em;
-    }
-
       /* 引用块容器样式 */
     :global(.markdown-content blockquote) {
       position: relative;
-      margin: 1rem 0;
-      margin-left: 2rem;
+      margin: 1rem 0 1rem 2rem;
       background: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(139, 92, 246, 0.08) 100%);
-      border-radius: 5px 5px 5px 5px;
+      border-radius: 5px;
       border: 1px solid rgba(59, 130, 246, 0.2);
       box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
       overflow: hidden;
+      will-change: transform;
+      transform: translateZ(0);
     }
 
     /* 引用标签样式 */
@@ -160,16 +136,18 @@ const { title, description, sidebarTitle, sidebarItems, breadcrumbs } = Astro.pr
       top: -1px;
       background: linear-gradient(135deg, rgba(59, 130, 246, 0.9) 0%, rgba(139, 92, 246, 0.8) 100%);
       color: white;
-      padding: 0.15rem 2.7rem 0.15rem 2.7rem;
+      padding: 0.15rem 2.7rem;
       font-size: 0.7rem;
       font-weight: 600;
       font-style: normal;
       line-height: 1;
-      z-index: 1;
-      border-radius: 5px 0 8px 0;
+      z-index: 10;
+      border-radius: 5px 0 5px 0;
       box-shadow: 0 1px 3px rgba(59, 130, 246, 0.2);
       text-align: center;
       border: 1px solid rgba(59, 130, 246, 0.3);
+      will-change: transform;
+      transform: translateZ(0);
     }
 
     /* 引用内容 */
@@ -183,25 +161,59 @@ const { title, description, sidebarTitle, sidebarItems, breadcrumbs } = Astro.pr
       text-align: left;
     }
 
-      /* 功能概述引用的特殊样式 */
-    :global(.markdown-content blockquote:has(strong:contains("功能概述"))) {
-      background: none;
-      border: none;
-      font-weight: 500;
-      padding-left: 0.8rem;
-    }
 
-  :global(.markdown-content blockquote:has(strong:contains("功能概述")) strong) {
-    background: linear-gradient(90deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.15) 100%);
-    color: var(--primary-color);
-    font-weight: 700;
-  }
 
   /* 响应式设计 */
   @media screen and (max-width: 768px) {
     :global(.markdown-content blockquote) {
-      padding: 1.5rem 1.5rem 1.5rem 1.3rem;
-      margin: 1.5rem 0;
+      margin: 1rem 0 1rem 1rem;
+    }
+    
+    :global(.markdown-content h1) {
+      font-size: 2rem;
+    }
+    
+    :global(.markdown-content h2) {
+      font-size: 1.5rem;
+    }
+    
+    :global(.markdown-content h3) {
+      font-size: 1.1rem;
+      margin-left: 1rem;
+    }
+    
+    :global(.markdown-content p:not(:first-of-type)) {
+      padding-left: 2rem;
+    }
+    
+    :global(.markdown-content ul, .markdown-content ol) {
+      padding-left: 1rem;
+    }
+    
+    :global(.markdown-content li) {
+      padding-left: 2rem;
+    }
+    
+    :global(.markdown-content ul li::before) {
+      left: 0.5rem;
+    }
+    
+    :global(.markdown-content ol li::before) {
+      left: 0.5rem;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    :global(.markdown-content h1) {
+      font-size: 1.8rem;
+    }
+    
+    :global(.markdown-content blockquote) {
+      margin: 0.5rem 0 0.5rem 0.5rem;
+    }
+    
+    :global(.markdown-content p:not(:first-of-type)) {
+      padding-left: 1rem;
     }
   }
 
@@ -209,7 +221,7 @@ const { title, description, sidebarTitle, sidebarItems, breadcrumbs } = Astro.pr
       :global(.markdown-content h1 + p) {
         background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(139, 92, 246, 0.04) 100%);
         border: 1px solid rgba(59, 130, 246, 0.12);
-        border-radius: 12px;
+        border-radius: 5px;
         padding: 1.05rem 1.4rem !important;
         margin: 0 !important;
         font-size: 1.1rem;
@@ -232,6 +244,7 @@ const { title, description, sidebarTitle, sidebarItems, breadcrumbs } = Astro.pr
       color: var(--text-secondary);
     }
 
+    /* 列表样式优化 */
     :global(.markdown-content ul, .markdown-content ol) {
       padding-left: 2rem;
       margin: 1rem 0;
@@ -241,11 +254,10 @@ const { title, description, sidebarTitle, sidebarItems, breadcrumbs } = Astro.pr
       margin: 0.5rem 0;
       line-height: 1.6;
       color: var(--text-secondary);
-      padding-left: 5rem;
+      padding-left: 4rem;
       position: relative;
     }
 
-    /* 保持 Markdown 原有的列表缩进 */
     :global(.markdown-content ul) {
       list-style: none;
     }
@@ -255,7 +267,7 @@ const { title, description, sidebarTitle, sidebarItems, breadcrumbs } = Astro.pr
       color: var(--primary-color);
       font-weight: bold;
       position: absolute;
-      left: 3.5rem;
+      left: 2.5rem;
       top: 0;
     }
 
@@ -266,7 +278,6 @@ const { title, description, sidebarTitle, sidebarItems, breadcrumbs } = Astro.pr
 
     :global(.markdown-content ol li) {
       counter-increment: list-counter;
-      padding-left: 5rem;
     }
 
     :global(.markdown-content ol li::before) {
@@ -274,16 +285,82 @@ const { title, description, sidebarTitle, sidebarItems, breadcrumbs } = Astro.pr
       color: var(--primary-color);
       font-weight: bold;
       position: absolute;
-      left: 3.5rem;
+      left: 2.5rem;
       top: 0;
+    }
+
+    /* 代码样式 */
+    :global(.markdown-content code) {
+      background: #f1f5f9;
+      padding: 0.2rem 0.4rem;
+      border-radius: 5px;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 0.9rem;
+      color: #dc2626;
+    }
+
+    :global(.markdown-content pre) {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 1rem;
+      border-radius: 5px;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+
+    :global(.markdown-content pre code) {
+      background: none;
+      color: inherit;
+      padding: 0;
+    }
+
+    /* 表格样式 */
+    :global(.markdown-content table) {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+
+    :global(.markdown-content th),
+    :global(.markdown-content td) {
+      border: 1px solid #e5e7eb;
+      padding: 0.75rem;
+      text-align: left;
+    }
+
+    :global(.markdown-content th) {
+      background: #f8fafc;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    :global(.markdown-content tr:nth-child(even)) {
+      background: #f8fafc;
     }
 
     /* 打印样式 */
     @media print {
       :global(.markdown-content blockquote) {
-        background: white;
-        border: 1px solid #ccc;
-        box-shadow: none;
+        background: white !important;
+        border: 1px solid #ccc !important;
+        box-shadow: none !important;
+        break-inside: avoid;
+      }
+      
+      :global(.markdown-content blockquote::before) {
+        background: #f0f0f0 !important;
+        color: #333 !important;
+        border: 1px solid #ccc !important;
+        box-shadow: none !important;
+      }
+      
+      :global(.markdown-content h1, .markdown-content h2, .markdown-content h3) {
+        break-after: avoid;
+        page-break-after: avoid;
+      }
+      
+      :global(.markdown-content li) {
+        break-inside: avoid;
       }
     }
 </style>

@@ -1,0 +1,124 @@
+---
+// 回到顶部按钮组件
+---
+
+<button id="back-to-top" class="back-to-top" aria-label="回到顶部">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 4L4 12H9V20H15V12H20L12 4Z" fill="currentColor"/>
+  </svg>
+</button>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const backToTopButton = document.getElementById('back-to-top');
+    
+    if (!backToTopButton) return;
+    
+    // 显示/隐藏按钮的滚动阈值
+    const showThreshold = 300;
+    
+    function toggleBackToTopButton() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      if (scrollTop > showThreshold) {
+        backToTopButton.classList.add('visible');
+      } else {
+        backToTopButton.classList.remove('visible');
+      }
+    }
+    
+    // 回到顶部功能
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+    
+    // 监听滚动事件
+    window.addEventListener('scroll', toggleBackToTopButton, { passive: true });
+    
+    // 点击事件
+    backToTopButton.addEventListener('click', scrollToTop);
+    
+    // 初始状态检查
+    toggleBackToTopButton();
+  });
+</script>
+
+<style>
+  .back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.8);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .back-to-top:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 12px 35px rgba(59, 130, 246, 0.4);
+  }
+  
+  .back-to-top:active {
+    transform: translateY(-2px) scale(1.05);
+  }
+  
+  .back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+  
+  .back-to-top svg {
+    transition: transform 0.2s ease;
+  }
+  
+  .back-to-top:hover svg {
+    transform: translateY(-2px);
+  }
+  
+  /* 响应式设计 */
+  @media screen and (max-width: 768px) {
+    .back-to-top {
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+    }
+    
+    .back-to-top svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .back-to-top {
+      bottom: 15px;
+      right: 15px;
+      width: 45px;
+      height: 45px;
+    }
+    
+    .back-to-top svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+</style>

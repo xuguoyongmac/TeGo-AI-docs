@@ -47,18 +47,58 @@ const navItems = [
                   <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </a>
-              <ul class="dropdown-menu">
-                {item.children.map(child => (
-                  <li>
-                    <a 
-                      href={child.path} 
-                      class={`dropdown-link ${currentPath === child.path ? 'active' : ''}`}
-                    >
-                      {child.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              <div class="dropdown-menu">
+                <div class="dropdown-content">
+                  <div class="dropdown-column">
+                    {item.children.slice(0, Math.ceil(item.children.length / 2)).map(child => (
+                      <a 
+                        href={child.path} 
+                        class={`dropdown-item ${currentPath === child.path ? 'active' : ''}`}
+                      >
+                        <div class="dropdown-item-title">{child.name}</div>
+                        <div class="dropdown-item-description">
+                          {child.name === '产品介绍' && '了解 TeGo-AI 的核心功能和技术优势'}
+                          {child.name === '产品功能' && '深入了解核心功能和技术特性'}
+                          {child.name === '技术架构' && '了解技术架构和系统设计'}
+                          {child.name === '使用手册' && '详细的安装部署和操作指南'}
+                          {child.name === '产品手册' && '完整的产品功能说明与操作手册'}
+                          {child.name === '快速开始' && '快速体验产品功能的完整指南'}
+                          {child.name === '详细指南' && '深入的产品使用和配置指南'}
+                          {child.name === '最佳实践' && '产品使用的最佳实践和优化建议'}
+                          {child.name === '体验手册' && '快速体验产品功能的完整指南'}
+                          {child.name === '概念验证' && '通过POC验证产品可行性'}
+                          {child.name === '演示案例' && '查看实际应用案例和演示'}
+                          {child.name === '试用指南' && '产品试用和评估指南'}
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                  <div class="dropdown-column">
+                    {item.children.slice(Math.ceil(item.children.length / 2)).map(child => (
+                      <a 
+                        href={child.path} 
+                        class={`dropdown-item ${currentPath === child.path ? 'active' : ''}`}
+                      >
+                        <div class="dropdown-item-title">{child.name}</div>
+                        <div class="dropdown-item-description">
+                          {child.name === '产品介绍' && '了解 TeGo-AI 的核心功能和技术优势'}
+                          {child.name === '产品功能' && '深入了解核心功能和技术特性'}
+                          {child.name === '技术架构' && '了解技术架构和系统设计'}
+                          {child.name === '使用手册' && '详细的安装部署和操作指南'}
+                          {child.name === '产品手册' && '完整的产品功能说明与操作手册'}
+                          {child.name === '快速开始' && '快速体验产品功能的完整指南'}
+                          {child.name === '详细指南' && '深入的产品使用和配置指南'}
+                          {child.name === '最佳实践' && '产品使用的最佳实践和优化建议'}
+                          {child.name === '体验手册' && '快速体验产品功能的完整指南'}
+                          {child.name === '概念验证' && '通过POC验证产品可行性'}
+                          {child.name === '演示案例' && '查看实际应用案例和演示'}
+                          {child.name === '试用指南' && '产品试用和评估指南'}
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           ) : (
             <a 
@@ -83,13 +123,124 @@ const navItems = [
   document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
+    const navbar = document.querySelector('.navbar');
 
+    // 智能导航栏控制
+    let lastScrollTop = 0;
+    let scrollThreshold = 30; // 滚动阈值
+    let isScrolling = false;
+    let scrollTimeout;
+    let hideTimeout; // 隐藏超时
+    let scrollDirection = 'none'; // 滚动方向
+
+    function handleScroll() {
+      if (isScrolling) return;
+      
+      const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollDelta = currentScrollTop - lastScrollTop;
+      
+      // 如果滚动距离小于阈值，不处理
+      if (Math.abs(scrollDelta) < scrollThreshold) return;
+      
+      isScrolling = true;
+      
+      // 确定滚动方向
+      if (scrollDelta > 0) {
+        scrollDirection = 'down';
+      } else if (scrollDelta < 0) {
+        scrollDirection = 'up';
+      }
+      
+      // 1. 页面往下滚动时，隐藏导航栏（需要超过一定位置）
+      if (scrollDirection === 'down' && currentScrollTop > 200) {
+        navbar?.classList.remove('navbar-visible');
+        navbar?.classList.add('navbar-hidden');
+      }
+      
+      // 确保在顶部安全区域内，导航栏始终显示
+      if (currentScrollTop <= 200) {
+        navbar?.classList.remove('navbar-hidden');
+        navbar?.classList.add('navbar-visible');
+      }
+      
+      // 2. 页面往上滚动时，显示导航栏
+      if (scrollDirection === 'up') {
+        navbar?.classList.remove('navbar-hidden');
+        navbar?.classList.add('navbar-visible');
+      }
+      
+      lastScrollTop = currentScrollTop;
+      
+      // 防抖处理
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isScrolling = false;
+        
+        // 3. 当用户停止滚动时，用户可能在阅读
+        // 如果导航栏是显示的，根据位置判断，1.5s后是否需要隐藏
+        if (navbar?.classList.contains('navbar-visible') && currentScrollTop > 200) {
+          clearTimeout(hideTimeout);
+          hideTimeout = setTimeout(() => {
+            // 1.5秒后隐藏导航栏（但不在顶部安全区域内）
+            if (window.pageYOffset > 200) {
+              navbar?.classList.remove('navbar-visible');
+              navbar?.classList.add('navbar-hidden');
+            }
+          }, 1500);
+        }
+      }, 150);
+    }
+
+    // 监听滚动事件
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // 页面顶部时显示导航栏
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset <= 200) {
+        navbar?.classList.remove('navbar-hidden');
+        navbar?.classList.add('navbar-visible');
+      }
+    }, { passive: true });
+
+    // 鼠标悬停在导航栏区域时显示
+    document.addEventListener('mouseenter', (e) => {
+      if (e.target === navbar || navbar?.contains(e.target as Node)) {
+        navbar?.classList.remove('navbar-hidden');
+        navbar?.classList.add('navbar-visible');
+      }
+    });
+
+    // 触摸设备支持 - 触摸顶部区域时显示导航栏
+    let touchStartY = 0;
+    document.addEventListener('touchstart', (e) => {
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    document.addEventListener('touchmove', (e) => {
+      const touchY = e.touches[0].clientY;
+      
+      // 如果触摸在顶部区域，显示导航栏
+      if (touchY < 100) {
+        navbar?.classList.remove('navbar-hidden');
+        navbar?.classList.add('navbar-visible');
+      }
+    }, { passive: true });
+
+    // 鼠标悬停在导航栏区域时显示
+    document.addEventListener('mouseenter', (e) => {
+      if (e.target === navbar || navbar?.contains(e.target as Node)) {
+        navbar?.classList.remove('navbar-hidden');
+        navbar?.classList.add('navbar-visible');
+      }
+    });
+
+    // 汉堡菜单
     hamburger?.addEventListener('click', () => {
       hamburger.classList.toggle('active');
       navMenu?.classList.toggle('active');
     });
 
-    document.querySelectorAll('.nav-link, .dropdown-link').forEach(n => n.addEventListener('click', () => {
+    document.querySelectorAll('.nav-link, .dropdown-item').forEach(n => n.addEventListener('click', () => {
       hamburger?.classList.remove('active');
       navMenu?.classList.remove('active');
     }));

@@ -4,28 +4,18 @@ const currentPath = Astro.url.pathname;
 const navItems = [
   { name: '首页', path: '/' },
   { 
-    name: '产品介绍', 
+    name: '知识库', 
     path: '/product-intro',
     children: [
       { name: '产品介绍', path: '/product-intro' },
       { name: '产品功能', path: '/product-intro/features' },
-      { name: '技术架构', path: '/product-intro/architecture' }
-    ]
-  },
-  { 
-    name: '使用手册', 
-    path: '/product-guide',
-    children: [
-      { name: '快速开始', path: '/getting-started' },
+      { name: '技术架构', path: '/product-intro/architecture' },
+      { name: '使用手册', path: '/product-guide' },
       { name: '产品手册', path: '/product-manual' },
+      { name: '快速开始', path: '/getting-started' },
       { name: '详细指南', path: '/product-guide' },
-      { name: '最佳实践', path: '/best-practices' }
-    ]
-  },
-  { 
-    name: '体验手册', 
-    path: '/poc-manual',
-    children: [
+      { name: '最佳实践', path: '/best-practices' },
+      { name: '体验手册', path: '/poc-manual' },
       { name: '概念验证', path: '/poc-manual' },
       { name: '演示案例', path: '/demo-cases' },
       { name: '试用指南', path: '/trial-guide' }

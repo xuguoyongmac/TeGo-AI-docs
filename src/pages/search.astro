@@ -15,7 +15,29 @@ const query = Astro.url.searchParams.get('q') || '';
         </a>
       </div>
       <h1>搜索结果</h1>
-      <p>关键词: <span class="search-query">"{query}"</span></p>
+    </div>
+
+    <!-- 搜索框区域 - 放在标题下面 -->
+    <div class="search-section">
+      <div class="search-container">
+        <div class="search-box">
+          <input 
+            type="text" 
+            placeholder="搜索文档" 
+            class="search-input" 
+            id="searchInput"
+            value=""
+            autocomplete="off"
+          />
+          <button class="search-button" id="searchButton">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <span class="search-button-text">搜索</span>
+          </button>
+        </div>
+      </div>
     </div>
     
     <div class="search-results" id="searchResults">
@@ -88,44 +110,93 @@ const query = Astro.url.searchParams.get('q') || '';
   function performSearch(query: string) {
     if (!query.trim()) return [];
     
+    // 分词处理：将查询拆分为多个关键词
+    const queryWords = query.toLowerCase().split(/\s+/).filter(word => word.length > 0);
+    
     const results = searchData.filter(item => {
       const searchText = `${item.title} ${item.description} ${item.keywords.join(' ')}`.toLowerCase();
-      return searchText.includes(query.toLowerCase());
+      
+      // 检查是否包含所有关键词（AND逻辑）
+      return queryWords.every(word => searchText.includes(word));
     });
 
     return results.sort((a, b) => {
-      const aScore = getMatchScore(a, query);
-      const bScore = getMatchScore(b, query);
+      const aScore = getMatchScore(a, query, queryWords);
+      const bScore = getMatchScore(b, query, queryWords);
       return bScore - aScore;
     });
   }
 
-  function getMatchScore(item: any, query: string) {
+  function getMatchScore(item: any, query: string, queryWords: string[]) {
     const queryLower = query.toLowerCase();
     let score = 0;
     
-    if (item.title.toLowerCase().includes(queryLower)) score += 10;
-    const keywordMatches = item.keywords.filter((keyword: string) => 
-      keyword.toLowerCase().includes(queryLower)
-    ).length;
-    score += keywordMatches * 5;
-    if (item.description.toLowerCase().includes(queryLower)) score += 3;
+    // 完整匹配得分
+    if (item.title.toLowerCase().includes(queryLower)) score += 15;
+    if (item.description.toLowerCase().includes(queryLower)) score += 8;
+    
+    // 分词匹配得分
+    queryWords.forEach(word => {
+      if (item.title.toLowerCase().includes(word)) score += 8;
+      if (item.description.toLowerCase().includes(word)) score += 4;
+      
+      // 关键词匹配得分
+      const keywordMatches = item.keywords.filter((keyword: string) => 
+        keyword.toLowerCase().includes(word)
+      ).length;
+      score += keywordMatches * 6;
+    });
+    
+    // 连续匹配加分
+    if (queryWords.length > 1) {
+      const consecutiveMatches = queryWords.filter((word, index) => {
+        if (index === 0) return true;
+        const prevWord = queryWords[index - 1];
+        const searchText = `${item.title} ${item.description} ${item.keywords.join(' ')}`.toLowerCase();
+        return searchText.includes(`${prevWord} ${word}`) || searchText.includes(`${word} ${prevWord}`);
+      }).length;
+      score += consecutiveMatches * 3;
+    }
     
     return score;
   }
+
+    // 搜索框事件监听
+    const searchInput = document.getElementById('searchInput') as HTMLInputElement;
+    const searchButton = document.getElementById('searchButton');
+
+    // 搜索按钮点击事件
+    searchButton?.addEventListener('click', function() {
+      const query = searchInput.value.trim();
+      if (query) {
+        // 跳转到搜索结果页面
+        window.location.href = `/search?q=${encodeURIComponent(query)}`;
+      }
+    });
+
+    // 回车键搜索
+    searchInput?.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        const query = this.value.trim();
+        if (query) {
+          // 跳转到搜索结果页面
+          window.location.href = `/search?q=${encodeURIComponent(query)}`;
+        }
+      }
+    });
 
     // 页面加载时执行搜索
   document.addEventListener('DOMContentLoaded', function() {
     const query = new URLSearchParams(window.location.search).get('q') || '';
     const resultsContainer = document.getElementById('searchResults');
-    const searchQueryElement = document.querySelector('.search-query');
+    const searchInput = document.getElementById('searchInput') as HTMLInputElement;
+    
+    // 将搜索关键词填充到搜索框中
+    if (searchInput && query) {
+      searchInput.value = query;
+    }
     
     if (!resultsContainer) return;
-    
-    // 更新页面标题中的关键词显示
-    if (searchQueryElement) {
-      searchQueryElement.textContent = `"${query}"`;
-    }
     
     if (!query.trim()) {
       resultsContainer.innerHTML = '<div class="no-query">请输入搜索关键词</div>';
@@ -154,7 +225,7 @@ const query = Astro.url.searchParams.get('q') || '';
             </a>
             <p class="result-description" style="text-decoration: none !important; color: #000 !important;">${highlightText(item.description, query)}</p>
           </div>
-          ${index < results.length - 1 ? '<div style="height: 1px; background: rgba(0, 0, 0, 0.08); margin: 0 0 1rem 0;"></div>' : ''}
+          ${index < results.length - 1 ? '<div style="height: 1px; background: rgba(0,0,0,0.08); margin: 0 0 1rem 0;"></div>' : ''}
         `).join('')}
       </div>
     `;
@@ -166,14 +237,171 @@ const query = Astro.url.searchParams.get('q') || '';
     max-width: 1000px;
     margin: 0 auto;
     padding: 2rem;
+    position: relative;
+    background: linear-gradient(180deg, 
+      rgba(59, 130, 246, 0.02) 0%, 
+      transparent 50%, 
+      rgba(139, 92, 246, 0.02) 100%
+    );
+    border-radius: 20px;
+    min-height: 100vh;
+  }
+
+  .search-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(59,130,246,0.03)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* 装饰性浮动元素 */
+  .search-page::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+    border-radius: 50%;
+    filter: blur(20px);
+    z-index: -1;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-20px) rotate(180deg);
+    }
+  }
+
+  /* 搜索框样式 - 与首页保持一致 */
+  .search-section {
+    padding: 1rem 0 2rem 0;
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    position: relative;
+  }
+
+  .search-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    height: 2px;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(59, 130, 246, 0.3) 15%, 
+      rgba(59, 130, 246, 0.8) 50%, 
+      rgba(139, 92, 246, 0.8) 50%, 
+      rgba(139, 92, 246, 0.3) 85%, 
+      transparent 100%
+    );
+    border-radius: 1px;
+  }
+
+
+
+  .search-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .search-box {
+    display: flex;
+    background: white;
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    margin: 0 auto;
+    max-width: 800px;
+    width: 100%;
+  }
+
+  .search-input {
+    flex: 1;
+    border: none;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    outline: none;
+    background: transparent;
+    border-radius: 50px 0 0 50px;
+  }
+
+  .search-input::placeholder {
+    color: #9ca3af;
+  }
+
+  .search-button {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    border: none;
+    padding: 1.2rem 2rem;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 50px 50px 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .search-button:hover {
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+  }
+
+  .search-button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  }
+
+  .search-button svg {
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+  }
+
+  .search-button:hover svg {
+    transform: scale(1.1);
+  }
+
+  .search-button-text {
+    margin-left: 0.5rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+  }
+
+  .search-button:hover .search-button-text {
+    transform: scale(1.05);
   }
 
   .search-header {
     text-align: center;
-    margin-bottom: 4rem;
-    padding-bottom: 2.5rem;
-    border-bottom: 1px solid;
-    border-image: linear-gradient(90deg, transparent, #3b82f6, #8b5cf6, transparent) 1;
+    margin-bottom: 35px;
+    padding-bottom: 0;
   }
 
   .search-header-top {
@@ -218,18 +446,14 @@ const query = Astro.url.searchParams.get('q') || '';
     margin-bottom: 1rem;
   }
 
-  .search-query {
-    color: #3b82f6;
-    font-weight: 600;
-  }
+
 
   .results-count {
     font-size: 1.1rem;
     color: #64748b;
+    margin-top: 2rem;
     margin-bottom: 2rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid;
-    border-image: linear-gradient(90deg, transparent, #3b82f6, #8b5cf6, transparent) 1;
   }
 
   .results-list {
@@ -240,12 +464,34 @@ const query = Astro.url.searchParams.get('q') || '';
 
   .result-item {
     display: block;
-    padding: 1.5rem 0;
+    padding: 2rem;
     text-decoration: none !important;
     color: #000 !important;
-    border-bottom: 1px solid;
-    border-image: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3), transparent) 1;
-    transition: background-color 0.2s ease;
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .result-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .result-item:hover::before {
+    transform: scaleX(1);
   }
 
   .result-item:hover {
@@ -268,23 +514,36 @@ const query = Astro.url.searchParams.get('q') || '';
   }
 
   .result-item:hover {
-    background: #f8fafc;
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.2);
   }
 
   .result-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #000 !important;
-    margin: 0 0 0.5rem 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1e293b !important;
+    margin: 0 0 0.75rem 0;
     text-decoration: none !important;
+    transition: color 0.3s ease;
+  }
+
+  .result-item:hover .result-title {
+    color: #3b82f6 !important;
   }
 
   .result-description {
-    color: #000 !important;
+    color: #64748b !important;
     margin: 0;
-    line-height: 1.5;
-    font-size: 0.9rem;
+    line-height: 1.6;
+    font-size: 1rem;
     text-decoration: none !important;
+    transition: color 0.3s ease;
+  }
+
+  .result-item:hover .result-description {
+    color: #475569 !important;
   }
 
   .highlight {

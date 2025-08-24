@@ -85,31 +85,126 @@ body {
   text-decoration: none;
   color: #374151;
   font-weight: 500;
-  padding: 0.35rem 1rem;
-  border-radius: 6px;
+  padding: 0.6rem 1.8rem;
+  border-radius: 5px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: block;
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
+  position: relative;
+  overflow: hidden;
+  min-width: 120px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* 主题色下划线动画效果 */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0.3rem;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(135deg, 
+    #3b82f6,
+    #8b5cf6,
+    #06b6d4
+  );
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(-50%);
+  border-radius: 2px;
+  box-shadow: 
+    0 0 8px rgba(59, 130, 246, 0.4),
+    0 0 12px rgba(59, 130, 246, 0.3);
+}
+
+.nav-link:hover::after {
+  width: 70%;
+  box-shadow: 
+    0 0 15px rgba(59, 130, 246, 0.6),
+    0 0 20px rgba(139, 92, 246, 0.3),
+    0 0 25px rgba(6, 182, 212, 0.2);
+}
+
+.nav-link.active::after {
+  width: 70%;
+  box-shadow: 
+    0 0 15px rgba(59, 130, 246, 0.6),
+    0 0 20px rgba(139, 92, 246, 0.3);
+  background: linear-gradient(135deg, 
+    #3b82f6,
+    #8b5cf6,
+    #06b6d4
+  );
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 选中状态下划线保持静态，不执行动画 */
+.nav-link.active::after {
+  /* 不添加动画，保持静态显示 */
 }
 
 .nav-link:hover {
-  background: #3b82f6;
-  color: white;
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.1),
+    rgba(139, 92, 246, 0.12),
+    rgba(6, 182, 212, 0.08)
+  );
+  color: #1e293b;
   border: none !important;
   outline: none !important;
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.25);
+  box-shadow: 
+    0 4px 15px rgba(59, 130, 246, 0.2),
+    0 0 20px rgba(59, 130, 246, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
   transform: translateY(-1px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 炫酷的动态光泽效果 */
+.nav-link:hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.6s ease;
+  z-index: 1;
+}
+
+.nav-link:hover::before {
+  left: 100%;
 }
 
 .nav-link.active {
-  background: #2563eb;
-  color: white;
+  background: transparent;
+  color: #1e293b;
   border: none !important;
   outline: none !important;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-  transform: translateY(-1px);
+  box-shadow: none;
+  transform: none;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 选中状态保持简洁 */
+.nav-link.active::before {
+  display: none;
 }
 
 /* 下拉菜单样式 */
@@ -118,17 +213,7 @@ body {
 }
 
 .dropdown-toggle {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.dropdown-arrow {
-  transition: transform 0.2s ease;
-}
-
-.dropdown-container:hover .dropdown-arrow {
-  transform: rotate(180deg);
+  display: block;
 }
 
 .dropdown-menu {
@@ -203,21 +288,114 @@ body {
   box-shadow: none !important;
   border-radius: 6px;
   padding: 1rem;
+  position: relative;
+  overflow: hidden;
+  min-width: 200px;
+  white-space: nowrap;
+}
+
+/* 下拉菜单项主题色下划线效果 */
+.dropdown-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0.5rem;
+  left: 1rem;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(135deg, 
+    #3b82f6,
+    #8b5cf6,
+    #06b6d4
+  );
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 2px;
+  box-shadow: 
+    0 0 6px rgba(59, 130, 246, 0.3),
+    0 0 10px rgba(59, 130, 246, 0.2);
+}
+
+.dropdown-item:hover::after {
+  width: calc(70% - 1.4rem);
+  box-shadow: 
+    0 0 10px rgba(59, 130, 246, 0.5),
+    0 0 15px rgba(139, 92, 246, 0.3),
+    0 0 20px rgba(6, 182, 212, 0.2);
+}
+
+.dropdown-item.active::after {
+  width: calc(70% - 1.4rem);
+  box-shadow: 
+    0 0 12px rgba(59, 130, 246, 0.5),
+    0 0 18px rgba(139, 92, 246, 0.3);
+  background: linear-gradient(135deg, 
+    #3b82f6,
+    #8b5cf6,
+    #06b6d4
+  );
+}
+
+@keyframes dropdownGradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 下拉菜单选中状态下划线保持静态，不执行动画 */
+.dropdown-item.active::after {
+  /* 不添加动画，保持静态显示 */
 }
 
 .dropdown-item:hover {
-  background: rgba(59, 130, 246, 0.08);
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.08),
+    rgba(139, 92, 246, 0.1),
+    rgba(6, 182, 212, 0.06)
+  );
   border: none !important;
   outline: none !important;
-  box-shadow: none !important;
+  box-shadow: 
+    0 4px 15px rgba(59, 130, 246, 0.12),
+    0 0 20px rgba(59, 130, 246, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 下拉菜单项炫光效果 */
+.dropdown-item:hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  transition: left 0.5s ease;
+  z-index: 1;
+}
+
+.dropdown-item:hover::before {
+  left: 100%;
 }
 
 .dropdown-item.active {
-  background: rgba(37, 99, 235, 0.12);
+  background: transparent;
   border: none !important;
   outline: none !important;
-  box-shadow: none !important;
+  box-shadow: none;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 下拉菜单选中状态保持简洁 */
+.dropdown-item.active::before {
+  display: none;
 }
 
 .dropdown-item-title {
@@ -226,6 +404,15 @@ body {
   color: #1f2937;
   margin-bottom: 0.5rem;
   line-height: 1.4;
+  transition: color 0.3s ease;
+}
+
+.dropdown-item:hover .dropdown-item-title {
+  color: #1e40af;
+}
+
+.dropdown-item.active .dropdown-item-title {
+  color: #1e40af;
 }
 
 .dropdown-item-description {
@@ -233,6 +420,15 @@ body {
   color: #6b7280;
   line-height: 1.5;
   font-weight: 400;
+  transition: color 0.3s ease;
+}
+
+.dropdown-item:hover .dropdown-item-description {
+  color: #4b5563;
+}
+
+.dropdown-item.active .dropdown-item-description {
+  color: #4b5563;
 }
 
 .dropdown-link {

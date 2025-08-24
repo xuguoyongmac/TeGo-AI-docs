@@ -8,7 +8,7 @@ import Search from '../components/Search.astro';
   <!-- 文档中心英雄区域 -->
   <div class="home-hero-section">
     <div class="home-hero-content">
-      <h1 class="home-hero-title">TeGo-AI 文档中心</h1>
+      <h1 class="home-hero-title">欢迎​参阅 TeGo-AI ​帮助</h1>
       <p class="home-hero-description">
         了解产品功能，寻找问题答案。
       </p>
@@ -16,69 +16,25 @@ import Search from '../components/Search.astro';
       <!-- 搜索组件 -->
       <Search />
       
-      <!-- 热门搜索标签 -->
-      <div class="home-hot-search">
-        <span class="home-hot-search-label">其他人正在搜索:</span>
-        <div class="home-hot-search-tags">
-          <button class="home-hot-tag" data-search="智能体管理">智能体管理</button>
-          <button class="home-hot-tag" data-search="API 接口">引擎节点</button>
-          <button class="home-hot-tag" data-search="快速部署">快速部署</button>
-          <button class="home-hot-tag" data-search="MCP 服务">MCP 服务</button>
-        </div>
-      </div>
+
     </div>
   </div>
 
-  <!-- 文档导航网格 -->
-  <div class="home-docs-grid-section">
-    <div class="home-docs-grid">
-      <a href="/product-intro" class="home-doc-card">
-        <div class="home-doc-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-            <polyline points="14,2 14,8 20,8"></polyline>
-            <line x1="16" y1="13" x2="8" y2="13"></line>
-            <line x1="16" y1="17" x2="8" y2="17"></line>
-            <polyline points="10,9 9,9 8,9"></polyline>
-          </svg>
-        </div>
-        <div class="home-doc-content">
-          <h3>产品介绍</h3>
-          <p>了解 TeGo-AI 的核心功能、技术优势和应用场景</p>
-        </div>
-      </a>
-
-      <a href="/getting-started" class="home-doc-card">
-        <div class="home-doc-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-            <path d="M2 17l10 5 10-5"></path>
-            <path d="M2 12l10 5 10-5"></path>
-          </svg>
-        </div>
-        <div class="home-doc-content">
-          <h3>快速开始</h3>
-          <p>详细的安装部署指南，助您快速上手 TeGo-AI</p>
-        </div>
-      </a>
-
-      <a href="/product-intro/features" class="home-doc-card">
-        <div class="home-doc-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-            <circle cx="8.5" cy="8.5" r="1.5"></circle>
-            <polyline points="21,15 16,10 5,21"></polyline>
-          </svg>
-        </div>
-        <div class="home-doc-content">
-          <h3>产品功能</h3>
-          <p>深入了解 TeGo-AI 的核心功能和技术特性</p>
-        </div>
-      </a>
-
-      <a href="/product-intro/architecture" class="home-doc-card">
-        <div class="home-doc-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+  <!-- 快捷入口导航网格 -->
+  <div class="home-resources-section">
+    <h2 class="home-resources-title">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" class="title-icon">
+        <path d="M3 3v18h18"></path>
+        <path d="M9 9l9 9"></path>
+        <path d="M18 9V3H9v6"></path>
+      </svg>
+      快捷入口
+    </h2>
+    <div class="home-resources-divider"></div>
+    <div class="home-resources-grid">
+      <a href="./product-intro" class="home-resource-card">
+        <div class="home-resource-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
             <path d="M2 17l10 5 10-5"></path>
             <path d="M2 12l10 5 10-5"></path>
@@ -86,34 +42,82 @@ import Search from '../components/Search.astro';
             <path d="M17 2v20"></path>
           </svg>
         </div>
-        <div class="home-doc-content">
-          <h3>技术架构</h3>
-          <p>了解 TeGo-AI 的技术架构和系统设计</p>
+        <div class="home-resource-content">
+          <h3>入门指南</h3>
+          <p>阅读入门指南，为成功做好准备</p>
         </div>
       </a>
 
-      <a href="/poc-manual" class="home-doc-card">
-        <div class="home-doc-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+      <a href="./product-intro/features" class="home-resource-card">
+        <div class="home-resource-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21,15 16,10 5,21"></polyline>
           </svg>
         </div>
-        <div class="home-doc-content">
-          <h3>体验手册</h3>
-          <p>快速体验产品功能的完整指南和演示</p>
+        <div class="home-resource-content">
+          <h3>产品指南</h3>
+          <p>利用全面详实的文档，将 TeGo-AI 用得淋漓尽致</p>
         </div>
       </a>
 
-      <a href="/faq" class="home-doc-card">
-        <div class="home-doc-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <a href="./faq" class="home-resource-card">
+        <div class="home-resource-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"></circle>
             <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-            <circle cx="12" cy="17" r=".5"></circle>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
           </svg>
         </div>
-        <div class="home-doc-content">
-          <h3>常见问题</h3>
-          <p>解答您在使用过程中的常见疑问和问题</p>
+        <div class="home-resource-content">
+          <h3>帮助和常见问题</h3>
+          <p>查找常见问题的解决方案</p>
+        </div>
+      </a>
+
+      <a href="./product-intro/architecture" class="home-resource-card">
+        <div class="home-resource-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M9 12l2 2 4-4"></path>
+            <path d="M21 12c-1 0-2-1-2-2s1-2 2-2 2 1 2 2-1 2-2 2z"></path>
+            <path d="M3 12c1 0 2-1 2-2s-1-2-2-2-2 1-2 2 1 2 2 2z"></path>
+            <path d="M12 3c0 1-1 2-2 2s-2-1-2-2 1-2 2-2 2 1 2 2z"></path>
+            <path d="M12 21c0-1 1-2 2-2s2 1 2 2-1 2-2 2-2-1-2-2z"></path>
+          </svg>
+        </div>
+        <div class="home-resource-content">
+          <h3>最佳实践和操作方法</h3>
+          <p>查找常见用例的提示和逐步教程</p>
+        </div>
+      </a>
+
+      <a href="./poc-manual" class="home-resource-card">
+        <div class="home-resource-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            <line x1="19" y1="16" x2="5" y2="16"></line>
+            <line x1="20" y1="6" x2="9" y2="6"></line>
+          </svg>
+        </div>
+        <div class="home-resource-content">
+          <h3>视频</h3>
+          <p>观看并了解如何使用 TeGo-AI</p>
+        </div>
+      </a>
+
+      <a href="./getting-started" class="home-resource-card">
+        <div class="home-resource-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+        </div>
+        <div class="home-resource-content">
+          <h3>社区</h3>
+          <p>与其他 TeGo-AI 用户交流，相互分享使用经验</p>
         </div>
       </a>
     </div>
@@ -121,26 +125,3 @@ import Search from '../components/Search.astro';
   </div>
 </Layout>
 
-<script>
-  // 热门搜索标签点击事件
-  document.addEventListener('DOMContentLoaded', function() {
-    const hotTags = document.querySelectorAll('.home-hot-tag');
-    
-    hotTags.forEach(tag => {
-      tag.addEventListener('click', function(this: HTMLElement) {
-        const searchTerm = this.getAttribute('data-search');
-        if (searchTerm) {
-          // 获取搜索输入框并设置值
-          const searchInput = document.getElementById('searchInput') as HTMLInputElement;
-          if (searchInput) {
-            searchInput.value = searchTerm;
-            // 触发输入事件以显示搜索结果
-            searchInput.dispatchEvent(new Event('input'));
-            // 聚焦到搜索框
-            searchInput.focus();
-          }
-        }
-      });
-    });
-  });
-</script>

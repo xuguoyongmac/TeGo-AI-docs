@@ -16,6 +16,7 @@
         <circle cx="11" cy="11" r="8"></circle>
         <path d="m21 21-4.35-4.35"></path>
       </svg>
+      <span class="search-button-text">搜索</span>
     </button>
   </div>
 </div>
@@ -58,7 +59,7 @@
   .search-box {
     display: flex;
     background: white;
-    border-radius: 12px;
+    border-radius: 50px;
     overflow: hidden;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     margin-bottom: 1.5rem;
@@ -71,6 +72,7 @@
     font-size: 1rem;
     outline: none;
     background: transparent;
+    border-radius: 50px 0 0 50px;
   }
 
   .search-input::placeholder {
@@ -78,19 +80,56 @@
   }
 
   .search-button {
-    background: #3b82f6;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
     border: none;
-    padding: 1rem 1.5rem;
+    padding: 1.2rem 2rem;
     color: white;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 0 50px 50px 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
   .search-button:hover {
-    background: #2563eb;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+  }
+
+  .search-button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  }
+
+  .search-button svg {
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+  }
+
+  .search-button:hover svg {
+    transform: scale(1.1);
+  }
+
+  .search-button-text {
+    margin-left: 0.5rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+  }
+
+  .search-button:hover .search-button-text {
+    transform: scale(1.05);
   }
 
   /* 响应式设计 */

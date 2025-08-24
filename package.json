@@ -1,16 +1,67 @@
 {
-  "name": "@example/basics",
+  "name": "tego-ai-docs",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "description": "TeGo-AI 文档中心 - 基于Markdown的现代化文档网站",
   "private": true,
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "clean": "rm -rf dist .astro",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src --ext .ts,.tsx,.astro",
+    "lint:fix": "eslint src --ext .ts,.tsx,.astro --fix",
+    "format": "prettier --write src/**/*.{ts,tsx,astro,css,md}",
+    "format:check": "prettier --check src/**/*.{ts,tsx,astro,css,md}",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage",
+    "doc:template": "node scripts/generate-doc-template.js",
+    "doc:validate": "node scripts/validate-docs.js",
+    "doc:stats": "node scripts/doc-stats.js",
+    "build:analyze": "astro build && npx vite-bundle-analyzer dist/_astro",
+    "deploy:preview": "npm run build && npm run preview",
+    "deploy:vercel": "vercel --prod",
+    "deploy:netlify": "netlify deploy --prod"
   },
   "dependencies": {
     "astro": "^5.2.5",
     "marked": "^16.2.0"
-  }
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.57.0",
+    "eslint-config-astro": "^0.29.0",
+    "eslint-plugin-astro": "^0.29.0",
+    "prettier": "^3.2.0",
+    "prettier-plugin-astro": "^0.13.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.3.0",
+    "vite-bundle-analyzer": "^0.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "keywords": [
+    "astro",
+    "documentation",
+    "markdown",
+    "tego-ai",
+    "docs",
+    "static-site"
+  ],
+  "author": "TeGo-AI Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tego-ai/docs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tego-ai/docs/issues"
+  },
+  "homepage": "https://docs.tego-ai.com"
 }

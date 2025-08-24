@@ -1,0 +1,229 @@
+---
+// 可复用的按钮组件
+// 支持多种样式、尺寸和状态
+
+interface Props {
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'link';
+  size?: 'sm' | 'md' | 'lg';
+  disabled?: boolean;
+  loading?: boolean;
+  fullWidth?: boolean;
+  type?: 'button' | 'submit' | 'reset';
+  href?: string;
+  target?: string;
+  rel?: string;
+  className?: string;
+  'data-testid'?: string;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  disabled = false,
+  loading = false,
+  fullWidth = false,
+  type = 'button',
+  href,
+  target,
+  rel,
+  className = '',
+  'data-testid': testId
+} = Astro.props;
+
+// 生成CSS类名
+const buttonClasses = [
+  'btn',
+  `btn-${variant}`,
+  `btn-${size}`,
+  fullWidth ? 'btn-full' : '',
+  loading ? 'btn-loading' : '',
+  className
+].filter(Boolean).join(' ');
+
+// 如果是链接按钮
+const isLink = !!href;
+const Tag = isLink ? 'a' : 'button';
+const attributes = isLink ? { href, target, rel } : { type };
+---
+
+<Tag 
+  class={buttonClasses}
+  disabled={disabled || loading}
+  {...attributes}
+  data-testid={testId}
+>
+  {loading && (
+    <svg class="btn-spinner" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 12a9 9 0 11-6.219-8.56"></path>
+    </svg>
+  )}
+  <span class="btn-content">
+    <slot />
+  </span>
+</Tag>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    user-select: none;
+  }
+  
+  .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  
+  .btn-full {
+    width: 100%;
+  }
+  
+  /* 尺寸变体 */
+  .btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    min-height: 32px;
+  }
+  
+  .btn-md {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    min-height: 40px;
+  }
+  
+  .btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+    min-height: 48px;
+  }
+  
+  /* 样式变体 */
+  .btn-primary {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    color: white;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  }
+  
+  .btn-primary:hover:not(:disabled) {
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+  }
+  
+  .btn-primary:active:not(:disabled) {
+    transform: translateY(-1px);
+  }
+  
+  .btn-secondary {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+  }
+  
+  .btn-secondary:hover:not(:disabled) {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.3);
+    transform: translateY(-1px);
+  }
+  
+  .btn-outline {
+    background: transparent;
+    color: #3b82f6;
+    border: 2px solid #3b82f6;
+  }
+  
+  .btn-outline:hover:not(:disabled) {
+    background: #3b82f6;
+    color: white;
+    transform: translateY(-1px);
+  }
+  
+  .btn-ghost {
+    background: transparent;
+    color: #64748b;
+    border: 1px solid transparent;
+  }
+  
+  .btn-ghost:hover:not(:disabled) {
+    background: rgba(100, 116, 139, 0.1);
+    color: #475569;
+  }
+  
+  .btn-link {
+    background: transparent;
+    color: #3b82f6;
+    border: none;
+    padding: 0;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  
+  .btn-link:hover:not(:disabled) {
+    color: #2563eb;
+    text-decoration-thickness: 2px;
+  }
+  
+  /* 加载状态 */
+  .btn-loading {
+    pointer-events: none;
+  }
+  
+  .btn-spinner {
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  /* 焦点状态 */
+  .btn:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+  
+  /* 响应式设计 */
+  @media screen and (max-width: 768px) {
+    .btn-md {
+      padding: 0.625rem 1.25rem;
+      font-size: 0.95rem;
+      min-height: 36px;
+    }
+    
+    .btn-lg {
+      padding: 0.875rem 1.75rem;
+      font-size: 1rem;
+      min-height: 44px;
+    }
+  }
+  
+  /* 深色模式支持 */
+  @media (prefers-color-scheme: dark) {
+    .btn-secondary {
+      background: rgba(59, 130, 246, 0.2);
+      color: #60a5fa;
+    }
+    
+    .btn-ghost {
+      color: #94a3b8;
+    }
+    
+    .btn-ghost:hover:not(:disabled) {
+      background: rgba(148, 163, 184, 0.2);
+      color: #cbd5e1;
+    }
+  }
+</style>

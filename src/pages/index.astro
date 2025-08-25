@@ -32,7 +32,7 @@ import Search from '../components/Search.astro';
     </h2>
     <div class="home-resources-divider"></div>
     
-    <!-- 主要功能区域 -->
+    <!-- 6个菜单入口 -->
     <div class="home-main-features">
       <a href="./product-intro" class="home-feature-card primary">
         <div class="feature-icon">
@@ -71,23 +71,22 @@ import Search from '../components/Search.astro';
       </a>
     </div>
 
-    <!-- 次要功能网格 -->
     <div class="home-secondary-features">
-      <a href="./product-intro/features" class="home-resource-card compact">
+      <a href="./poc-manual" class="home-resource-card compact">
         <div class="home-resource-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-            <circle cx="8.5" cy="8.5" r="1.5"></circle>
-            <polyline points="21,15 16,10 5,21"></polyline>
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            <line x1="19" y1="16" x2="5" y2="16"></line>
+            <line x1="20" y1="6" x2="9" y2="6"></line>
           </svg>
         </div>
         <div class="home-resource-content">
-          <h3>产品功能</h3>
-          <p>深入了解核心功能和技术特性</p>
+          <h3>POC体验手册</h3>
+          <p>快速体验产品功能的完整指南</p>
         </div>
       </a>
 
-      <a href="./product-intro/architecture" class="home-resource-card compact">
+      <a href="./architecture" class="home-resource-card compact">
         <div class="home-resource-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M9 12l2 2 4-4"></path>
@@ -101,17 +100,19 @@ import Search from '../components/Search.astro';
         </div>
       </a>
 
-      <a href="./poc-manual" class="home-resource-card compact">
+      <a href="./operations" class="home-resource-card compact">
         <div class="home-resource-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <polygon points="5 3 19 12 5 21 5 3"></polygon>
-            <line x1="19" y1="16" x2="5" y2="16"></line>
-            <line x1="20" y1="6" x2="9" y2="6"></line>
+            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+            <path d="M2 17l10 5 10-5"></path>
+            <path d="M2 12l10 5 10-5"></path>
+            <path d="M6.5 8a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+            <path d="M6.5 8a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
           </svg>
         </div>
         <div class="home-resource-content">
-          <h3>体验手册</h3>
-          <p>快速体验产品功能的完整指南</p>
+          <h3>运维部署</h3>
+          <p>系统运维和部署指南</p>
         </div>
       </a>
 

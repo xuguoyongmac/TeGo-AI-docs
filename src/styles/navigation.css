@@ -207,6 +207,37 @@ body {
   display: none;
 }
 
+/* 高亮链接样式 - 预约演示 */
+.nav-link.highlight-link {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  color: white !important;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+  border: none !important;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50px !important;
+}
+
+/* 光波效果已移除 */
+
+.nav-link.highlight-link:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+.nav-link.highlight-link.active {
+  background: linear-gradient(135deg, #1d4ed8 0%, #6d28d9 100%);
+  color: white !important;
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+}
+
+/* 高亮链接不显示下划线 */
+.nav-link.highlight-link::after {
+  display: none !important;
+}
+
 /* 下拉菜单样式 */
 .dropdown-container {
   position: relative;

@@ -5,23 +5,21 @@ const navItems = [
   { 
     name: '知识库', 
     path: '/product-intro',
-    children: [
-      { name: '产品介绍', path: '/product-intro' },
-      { name: '产品功能', path: '/product-intro/features' },
-      { name: '技术架构', path: '/product-intro/architecture' },
-      { name: '使用手册', path: '/product-guide' },
-      { name: '产品手册', path: '/product-manual' },
-      { name: '快速开始', path: '/getting-started' },
-      { name: '详细指南', path: '/product-guide' },
-      { name: '最佳实践', path: '/best-practices' },
-      { name: '体验手册', path: '/poc-manual' },
-      { name: '概念验证', path: '/poc-manual' },
-      { name: '演示案例', path: '/demo-cases' },
-      { name: '试用指南', path: '/trial-guide' }
-    ]
+            children: [
+          { name: '产品介绍', path: '/product-intro' },
+          { name: '技术架构', path: '/architecture' },
+          { name: '使用手册', path: '/product-guide' },
+          { name: '产品手册', path: '/product-manual' },
+          { name: '快速开始', path: '/getting-started' },
+          { name: '产品核心功能', path: '/features' },
+          { name: '产品功能清单', path: '/features-list' },
+          { name: 'POC体验手册', path: '/poc-manual' },
+          { name: '运维部署', path: '/operations' },
+          { name: '常见问题', path: '/faq' }
+        ]
   },
-  { name: '常见问题', path: '/faq' },
   { name: '关于我们', path: '/about' },
+    { name: '预约演示', path: '/appointment', isHighlight: true },
 ];
 ---
 
@@ -54,17 +52,15 @@ const navItems = [
                         <div class="dropdown-item-title">{child.name}</div>
                         <div class="dropdown-item-description">
                           {child.name === '产品介绍' && '了解 TeGo-AI 的核心功能和技术优势'}
-                          {child.name === '产品功能' && '深入了解核心功能和技术特性'}
                           {child.name === '技术架构' && '了解技术架构和系统设计'}
                           {child.name === '使用手册' && '详细的安装部署和操作指南'}
                           {child.name === '产品手册' && '完整的产品功能说明与操作手册'}
                           {child.name === '快速开始' && '快速体验产品功能的完整指南'}
-                          {child.name === '详细指南' && '深入的产品使用和配置指南'}
-                          {child.name === '最佳实践' && '产品使用的最佳实践和优化建议'}
-                          {child.name === '体验手册' && '快速体验产品功能的完整指南'}
-                          {child.name === '概念验证' && '通过POC验证产品可行性'}
-                          {child.name === '演示案例' && '查看实际应用案例和演示'}
-                          {child.name === '试用指南' && '产品试用和评估指南'}
+                          {child.name === '产品核心功能' && '深入了解核心功能和技术特性'}
+                          {child.name === '产品功能清单' && '完整的产品功能列表和说明'}
+                          {child.name === 'POC体验手册' && '快速体验产品功能的完整指南'}
+                          {child.name === '运维部署' && '系统运维和部署指南'}
+                          {child.name === '常见问题' && '查找常见问题的解决方案'}
                         </div>
                       </a>
                     ))}
@@ -78,17 +74,15 @@ const navItems = [
                         <div class="dropdown-item-title">{child.name}</div>
                         <div class="dropdown-item-description">
                           {child.name === '产品介绍' && '了解 TeGo-AI 的核心功能和技术优势'}
-                          {child.name === '产品功能' && '深入了解核心功能和技术特性'}
                           {child.name === '技术架构' && '了解技术架构和系统设计'}
                           {child.name === '使用手册' && '详细的安装部署和操作指南'}
                           {child.name === '产品手册' && '完整的产品功能说明与操作手册'}
                           {child.name === '快速开始' && '快速体验产品功能的完整指南'}
-                          {child.name === '详细指南' && '深入的产品使用和配置指南'}
-                          {child.name === '最佳实践' && '产品使用的最佳实践和优化建议'}
-                          {child.name === '体验手册' && '快速体验产品功能的完整指南'}
-                          {child.name === '概念验证' && '通过POC验证产品可行性'}
-                          {child.name === '演示案例' && '查看实际应用案例和演示'}
-                          {child.name === '试用指南' && '产品试用和评估指南'}
+                          {child.name === '产品核心功能' && '深入了解核心功能和技术特性'}
+                          {child.name === '产品功能清单' && '完整的产品功能列表和说明'}
+                          {child.name === 'POC体验手册' && '快速体验产品功能的完整指南'}
+                          {child.name === '运维部署' && '系统运维和部署指南'}
+                          {child.name === '常见问题' && '查找常见问题的解决方案'}
                         </div>
                       </a>
                     ))}
@@ -99,7 +93,7 @@ const navItems = [
           ) : (
             <a 
               href={item.path} 
-              class={`nav-link ${currentPath === item.path ? 'active' : ''}`}
+              class={`nav-link ${currentPath === item.path ? 'active' : ''} ${item.isHighlight ? 'highlight-link' : ''}`}
             >
               {item.name}
             </a>

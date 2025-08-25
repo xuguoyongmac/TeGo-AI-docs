@@ -14,12 +14,12 @@ exports.handler = async (event) => {
     const data = JSON.parse(event.body);
     
     // 验证必填字段
-    if (!data.name || !data.phone || !data.appointmentTime || !data.verificationCode) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ error: '缺少必填字段' })
-      };
-    }
+                if (!data.name || !data.phone || !data.appointmentTime || !data.participantCount) {
+              return {
+                statusCode: 400,
+                body: JSON.stringify({ error: '缺少必填字段' })
+              };
+            }
 
     // 创建邮件传输器
     const transporter = nodemailer.createTransporter({
@@ -56,14 +56,18 @@ exports.handler = async (event) => {
                 <td style="padding: 8px 0; font-weight: 600; color: #374151;">联系邮箱：</td>
                 <td style="padding: 8px 0; color: #64748b;">${data.email || '未填写'}</td>
               </tr>
-              <tr>
-                <td style="padding: 8px 0; font-weight: 600; color: #374151;">预约时间：</td>
-                <td style="padding: 8px 0; color: #64748b;">${new Date(data.appointmentTime).toLocaleString('zh-CN')}</td>
-              </tr>
-              <tr>
-                <td style="padding: 8px 0; font-weight: 600; color: #374151;">备注信息：</td>
-                <td style="padding: 8px 0; color: #64748b;">${data.message || '无'}</td>
-              </tr>
+                                    <tr>
+                        <td style="padding: 8px 0; font-weight: 600; color: #374151;">预约时间：</td>
+                        <td style="padding: 8px 0; color: #64748b;">${new Date(data.appointmentTime).toLocaleString('zh-CN')}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 8px 0; font-weight: 600; color: #374151;">参会人数：</td>
+                        <td style="padding: 8px 0; color: #64748b;">${data.participantCount}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 8px 0; font-weight: 600; color: #374151;">备注信息：</td>
+                        <td style="padding: 8px 0; color: #64748b;">${data.message || '无'}</td>
+                      </tr>
               <tr>
                 <td style="padding: 8px 0; font-weight: 600; color: #374151;">提交时间：</td>
                 <td style="padding: 8px 0; color: #64748b;">${new Date().toLocaleString('zh-CN')}</td>

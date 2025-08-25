@@ -12,7 +12,7 @@
 1. 访问 [Netlify User Settings](https://app.netlify.com/user/settings/applications)
 2. 点击 "New access token"
 3. 输入描述（如：GitHub Actions Deploy）
-4. 复制生成的 token
+4. 复制生成的 token：nfp_WcpjwyecSXuvqDzynvBacts3bLgTU1y6928b
 
 #### 获取 NETLIFY_SITE_ID：
 1. 在 Netlify 控制台创建新站点
@@ -28,8 +28,8 @@
 3. 添加以下两个 secrets：
 
 ```
-NETLIFY_AUTH_TOKEN: 您的 Netlify 访问令牌
-NETLIFY_SITE_ID: 您的 Netlify 站点 ID
+NETLIFY_AUTH_TOKEN: 您的 Netlify 访问令牌 nfp_WcpjwyecSXuvqDzynvBacts3bLgTU1y6928b
+NETLIFY_SITE_ID: 您的 Netlify 站点 ID ：d1b4b874-5022-42dd-bc84-bb2e14b24b5c
 ```
 
 ### 3. 配置环境变量
@@ -40,7 +40,7 @@ NETLIFY_SITE_ID: 您的 Netlify 站点 ID
 SMTP_HOST: SMTP 服务器地址（如：smtp.qq.com）
 SMTP_PORT: SMTP 端口（如：587）
 SMTP_USER: 发件人邮箱
-SMTP_PASS: 发件人邮箱密码/授权码
+SMTP_PASS: 发件人邮箱密码/授权码 ：bcyfituuynysbjga
 RECIPIENT_EMAIL: 收件人邮箱（xuguoyong@zhama.com）
 ```
 

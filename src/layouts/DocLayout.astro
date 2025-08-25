@@ -5,38 +5,64 @@ import Sidebar from '../components/Sidebar.astro';
 export interface Props {
   title: string;
   description?: string;
-  sidebarTitle: string;
-  sidebarItems: Array<{
+  sidebarTitle?: string;
+  sidebarItems?: Array<{
     href: string;
     text: string;
   }>;
-  breadcrumbs: Array<{
+  breadcrumbs?: Array<{
     href?: string;
     text: string;
   }>;
+  markdownContent?: string; // 新增：支持传入 Markdown 内容
 }
 
-const { title, description, sidebarTitle, sidebarItems, breadcrumbs } = Astro.props;
+const { title, description, sidebarTitle = "目录", sidebarItems = [], breadcrumbs = [], markdownContent } = Astro.props;
+
+// 自动从 Markdown 内容生成侧边栏
+function extractHeadings(content: string) {
+  const lines = content.split('\n');
+  const headings: Array<{ href: string; text: string }> = [];
+  
+  lines.forEach(line => {
+    if (line.startsWith('#')) {
+      const level = line.match(/^#+/)?.[0].length || 1;
+      const text = line.replace(/^#+\s*/, '').trim();
+      const id = text.toLowerCase().replace(/[^a-z0-9\u4e00-\u9fa5]+/g, '-');
+      
+      if (level <= 3) { // 只处理 h1, h2, h3
+        headings.push({ href: `#${id}`, text });
+      }
+    }
+  });
+  
+  return headings;
+}
+
+// 如果传入了 Markdown 内容，自动生成侧边栏
+const finalSidebarItems = markdownContent ? extractHeadings(markdownContent) : sidebarItems;
 ---
 
 <Layout title={title} description={description}>
   <div class="page-container">
-    <Sidebar title={sidebarTitle} items={sidebarItems} />
+    <Sidebar title={sidebarTitle} items={finalSidebarItems} />
     
     <main class="main-content">
       <div class="content-wrapper">
-        <nav class="breadcrumb">
-          {breadcrumbs.map((crumb, index) => (
-            <>
-              {crumb.href ? (
-                <a href={crumb.href}>{crumb.text}</a>
-              ) : (
-                <span>{crumb.text}</span>
-              )}
-              {index < breadcrumbs.length - 1 && ' > '}
-            </>
-          ))}
-        </nav>
+        {breadcrumbs.length > 0 && (
+          <nav class="breadcrumb">
+            {breadcrumbs.map((crumb, index) => (
+              <>
+                {crumb.href ? (
+                  <a href={crumb.href}>{crumb.text}</a>
+                ) : (
+                  <span>{crumb.text}</span>
+                )}
+                {index < breadcrumbs.length - 1 && ' > '}
+              </>
+            ))}
+          </nav>
+        )}
 
         <article class="markdown-content">
           <slot />

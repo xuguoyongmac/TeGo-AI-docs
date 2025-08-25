@@ -4,7 +4,7 @@ const query = Astro.url.searchParams.get('q') || '';
 ---
 
 <Layout title={`搜索: ${query} - TeGo-AI 文档中心`}>
-  <div class="search-page">
+  <div class="search-page page-background">
     <div class="search-header">
       <div class="search-header-top">
         <a href="/" class="back-button">
@@ -19,8 +19,8 @@ const query = Astro.url.searchParams.get('q') || '';
 
     <!-- 搜索框区域 - 放在标题下面 -->
     <div class="search-section">
-      <div class="search-container">
-        <div class="search-box">
+      <div class="search-container-wide">
+        <div class="search-box-wide">
           <input 
             type="text" 
             placeholder="搜索文档" 
@@ -161,31 +161,7 @@ const query = Astro.url.searchParams.get('q') || '';
     return score;
   }
 
-    // 搜索框事件监听
-    const searchInput = document.getElementById('searchInput') as HTMLInputElement;
-    const searchButton = document.getElementById('searchButton');
-
-    // 搜索按钮点击事件
-    searchButton?.addEventListener('click', function() {
-      const query = searchInput.value.trim();
-      if (query) {
-        // 跳转到搜索结果页面
-        window.location.href = `/search?q=${encodeURIComponent(query)}`;
-      }
-    });
-
-    // 回车键搜索
-    searchInput?.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        const query = this.value.trim();
-        if (query) {
-          // 跳转到搜索结果页面
-          window.location.href = `/search?q=${encodeURIComponent(query)}`;
-        }
-      }
-    });
-
-    // 页面加载时执行搜索
+  // 页面加载时执行搜索
   document.addEventListener('DOMContentLoaded', function() {
     const query = new URLSearchParams(window.location.search).get('q') || '';
     const resultsContainer = document.getElementById('searchResults');
@@ -230,178 +206,37 @@ const query = Astro.url.searchParams.get('q') || '';
       </div>
     `;
   });
+
+  // 搜索框事件监听
+  const searchInput = document.getElementById('searchInput') as HTMLInputElement;
+  const searchButton = document.getElementById('searchButton');
+
+  // 搜索按钮点击事件
+  searchButton?.addEventListener('click', function() {
+    const query = searchInput.value.trim();
+    if (query) {
+      // 跳转到搜索结果页面
+      window.location.href = `/search?q=${encodeURIComponent(query)}`;
+    }
+  });
+
+  // 回车键搜索
+  searchInput?.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      const query = this.value.trim();
+      if (query) {
+        // 跳转到搜索结果页面
+        window.location.href = `/search?q=${encodeURIComponent(query)}`;
+      }
+    }
+  });
 </script>
 
 <style>
-  .search-page {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 2rem;
-    position: relative;
-    background: linear-gradient(180deg, 
-      rgba(59, 130, 246, 0.02) 0%, 
-      transparent 50%, 
-      rgba(139, 92, 246, 0.02) 100%
-    );
-    border-radius: 20px;
-    min-height: 100vh;
-  }
-
-  .search-page::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(59,130,246,0.03)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-    opacity: 0.5;
-    pointer-events: none;
-    z-index: -1;
-  }
-
-  /* 装饰性浮动元素 */
-  .search-page::after {
-    content: '';
-    position: absolute;
-    top: 10%;
-    right: 5%;
-    width: 100px;
-    height: 100px;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
-    border-radius: 50%;
-    filter: blur(20px);
-    z-index: -1;
-    animation: float 6s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px) rotate(0deg);
-    }
-    50% {
-      transform: translateY(-20px) rotate(180deg);
-    }
-  }
-
-  /* 搜索框样式 - 与首页保持一致 */
-  .search-section {
-    padding: 1rem 0 2rem 0;
-    text-align: center;
-    margin-bottom: 3rem;
-    padding-bottom: 3rem;
-    position: relative;
-  }
-
-  .search-section::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 95%;
-    height: 2px;
-    background: linear-gradient(90deg, 
-      transparent 0%, 
-      rgba(59, 130, 246, 0.3) 15%, 
-      rgba(59, 130, 246, 0.8) 50%, 
-      rgba(139, 92, 246, 0.8) 50%, 
-      rgba(139, 92, 246, 0.3) 85%, 
-      transparent 100%
-    );
-    border-radius: 1px;
-  }
-
-
-
-  .search-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-
-  .search-box {
-    display: flex;
-    background: white;
-    border-radius: 50px;
-    overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    margin: 0 auto;
-    max-width: 800px;
-    width: 100%;
-  }
-
-  .search-input {
-    flex: 1;
-    border: none;
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
-    outline: none;
-    background: transparent;
-    border-radius: 50px 0 0 50px;
-  }
-
-  .search-input::placeholder {
-    color: #9ca3af;
-  }
-
-  .search-button {
-    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-    border: none;
-    padding: 1.2rem 2rem;
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0 50px 50px 0;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-    font-weight: 600;
-    font-size: 1.1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .search-button:hover {
-    background: linear-gradient(135deg, #2563eb, #7c3aed);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
-  }
-
-  .search-button:active {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-  }
-
-  .search-button svg {
-    position: relative;
-    z-index: 2;
-    transition: all 0.3s ease;
-  }
-
-  .search-button:hover svg {
-    transform: scale(1.1);
-  }
-
-  .search-button-text {
-    margin-left: 0.5rem;
-    font-weight: 700;
-    transition: all 0.3s ease;
-    position: relative;
-    z-index: 2;
-  }
-
-  .search-button:hover .search-button-text {
-    transform: scale(1.05);
-  }
-
   .search-header {
     text-align: center;
-    margin-bottom: 35px;
-    padding-bottom: 0;
+    margin-bottom: 4rem;
+    padding-bottom: 2.5rem;
   }
 
   .search-header-top {
@@ -446,12 +281,13 @@ const query = Astro.url.searchParams.get('q') || '';
     margin-bottom: 1rem;
   }
 
-
+  .search-results {
+    margin-top: 2rem;
+  }
 
   .results-count {
     font-size: 1.1rem;
     color: #64748b;
-    margin-top: 2rem;
     margin-bottom: 2rem;
     padding-bottom: 1rem;
   }
@@ -586,8 +422,7 @@ const query = Astro.url.searchParams.get('q') || '';
     }
     
     .result-type {
-      margin-left: 0;
-      align-self: flex-start;
+      font-size: 0.8rem;
     }
   }
 </style>

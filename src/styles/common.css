@@ -1,0 +1,317 @@
+/* ===== 通用样式文件 ===== */
+/* 提取所有重复的样式代码，实现组件化复用 */
+
+/* ===== 页面背景样式 ===== */
+.page-background {
+  position: relative;
+  background: linear-gradient(180deg, 
+    rgba(59, 130, 246, 0.02) 0%, 
+    transparent 50%, 
+    rgba(139, 92, 246, 0.02) 100%
+  );
+  border-radius: 20px;
+  min-height: 100vh;
+}
+
+.page-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(59,130,246,0.03)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.page-background::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  right: 5%;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+  border-radius: 50%;
+  filter: blur(20px);
+  z-index: -1;
+  animation: float 6s ease-in-out infinite;
+}
+
+/* ===== 搜索框样式 ===== */
+.search-container {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.search-box {
+  display: flex;
+  background: white;
+  border-radius: 50px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  outline: none;
+  background: transparent;
+  border-radius: 50px 0 0 50px;
+}
+
+.search-input::placeholder {
+  color: #9ca3af;
+}
+
+.search-button {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  border: none;
+  padding: 1.2rem 2rem;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 50px 50px 0;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.search-button:hover {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+}
+
+.search-button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.search-button svg {
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.search-button:hover svg {
+  transform: scale(1.1);
+}
+
+.search-button-text {
+  margin-left: 0.5rem;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.search-button:hover .search-button-text {
+  transform: scale(1.05);
+}
+
+/* ===== 搜索页面专用样式 ===== */
+.search-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.search-section {
+  padding: 1rem 0 2rem 0;
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  position: relative;
+}
+
+.search-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(59, 130, 246, 0.3) 15%, 
+    rgba(59, 130, 246, 0.8) 50%, 
+    rgba(139, 92, 246, 0.8) 50%, 
+    rgba(139, 92, 246, 0.3) 85%, 
+    transparent 100%
+  );
+  border-radius: 1px;
+}
+
+.search-container-wide {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.search-box-wide {
+  display: flex;
+  background: white;
+  border-radius: 50px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  margin: 0 auto;
+  max-width: 800px;
+  width: 100%;
+}
+
+/* ===== 卡片样式 ===== */
+.card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border-color: #3b82f6;
+}
+
+.card-primary {
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+  color: white;
+}
+
+.card-primary h3 {
+  color: white;
+}
+
+.card-primary p {
+  color: #e0e7ff;
+}
+
+/* ===== 网格布局 ===== */
+.grid-responsive {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.grid-responsive-small {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.5rem;
+}
+
+.grid-responsive-large {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* ===== 文本样式 ===== */
+.text-lead {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: #4b5563;
+  margin-bottom: 2rem;
+}
+
+.text-heading {
+  margin: 0 0 1rem 0;
+  color: #1e40af;
+}
+
+.text-body {
+  margin: 0;
+  color: #4b5563;
+}
+
+.text-stat {
+  font-size: 2rem;
+  margin: 0 0 0.5rem 0;
+  color: white;
+}
+
+.text-stat-label {
+  margin: 0;
+  color: #e0e7ff;
+  font-size: 0.9rem;
+}
+
+/* ===== 间距工具类 ===== */
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+.mb-5 { margin-bottom: 3rem; }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+.mt-5 { margin-top: 3rem; }
+
+.p-1 { padding: 0.5rem; }
+.p-2 { padding: 1rem; }
+.p-3 { padding: 1.5rem; }
+.p-4 { padding: 2rem; }
+
+/* ===== 动画关键帧 ===== */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+/* ===== 响应式设计 ===== */
+@media screen and (max-width: 768px) {
+  .search-container {
+    padding: 0 1rem;
+  }
+  
+  .search-container-wide {
+    padding: 0 1rem;
+  }
+  
+  .page-background {
+    padding: 1rem;
+  }
+  
+  .grid-responsive,
+  .grid-responsive-small,
+  .grid-responsive-large {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .card {
+    padding: 1rem;
+  }
+}

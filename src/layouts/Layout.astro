@@ -26,6 +26,17 @@ const { title, description = 'TeGo-AI 智能体管理平台' } = Astro.props;
 		<main class="main-content">
 			<slot />
 		</main>
+		
+		<!-- 版权信息 -->
+		<footer class="footer">
+			<div class="footer-content">
+				<div class="copyright">
+					<p>© 2025 TeGo. 版权所有 深圳市扎马未来科技有限公司</p>
+					<p class="icp">粤ICP备2025426259号-1</p>
+				</div>
+			</div>
+		</footer>
+		
 		<BackToTop />
 	</body>
 </html>
@@ -96,6 +107,51 @@ const { title, description = 'TeGo-AI 智能体管理平台' } = Astro.props;
 
 		.content-card {
 			padding: 1.5rem;
+		}
+	}
+	
+	/* 版权信息样式 */
+	.footer {
+		background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+		border-top: 1px solid rgba(59, 130, 246, 0.1);
+		padding: 2rem 0;
+		margin-top: 3rem;
+	}
+	
+	.footer-content {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 2rem;
+		text-align: center;
+	}
+	
+	.copyright {
+		color: #64748b;
+		font-size: 0.9rem;
+		line-height: 1.6;
+	}
+	
+	.copyright p {
+		margin: 0.5rem 0;
+	}
+	
+	.copyright .icp {
+		color: #94a3b8;
+		font-size: 0.8rem;
+	}
+	
+	@media screen and (max-width: 768px) {
+		.footer {
+			padding: 1.5rem 0;
+			margin-top: 2rem;
+		}
+		
+		.footer-content {
+			padding: 0 1rem;
+		}
+		
+		.copyright {
+			font-size: 0.85rem;
 		}
 	}
 </style>

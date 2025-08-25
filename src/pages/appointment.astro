@@ -1,0 +1,334 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="预约演示 - TeGo-AI" description="预约 TeGo-AI 产品演示">
+  <div class="appointment-page">
+    <div class="hero-section">
+      <h1>预约产品演示</h1>
+      <p>体验 TeGo-AI 智能体管理平台的强大功能</p>
+    </div>
+
+    <div class="appointment-form-container">
+      <div class="form-card">
+        <h2>填写预约信息</h2>
+        <form id="appointmentForm" class="appointment-form">
+          <div class="form-group">
+            <label for="name" class="required">姓名</label>
+            <input type="text" id="name" name="name" required placeholder="请输入您的姓名">
+          </div>
+
+          <div class="form-group">
+            <label for="phone" class="required">联系方式</label>
+            <input type="tel" id="phone" name="phone" required placeholder="请输入您的手机号码">
+          </div>
+
+          <div class="form-group">
+            <label for="email">联系邮箱</label>
+            <input type="email" id="email" name="email" placeholder="请输入您的邮箱地址（选填）">
+          </div>
+
+          <div class="form-group">
+            <label for="appointmentTime" class="required">预约演示时间</label>
+            <input type="datetime-local" id="appointmentTime" name="appointmentTime" required>
+          </div>
+
+          <div class="form-group">
+            <label for="verificationCode" class="required">验证码</label>
+            <div class="verification-container">
+              <input type="text" id="verificationCode" name="verificationCode" required placeholder="请输入验证码">
+              <div class="captcha-display" id="captchaDisplay"></div>
+              <button type="button" class="refresh-captcha" id="refreshCaptcha">刷新</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="message">备注信息</label>
+            <textarea id="message" name="message" rows="4" placeholder="请输入您的具体需求或备注信息（选填）"></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="submit-btn">提交预约</button>
+            <button type="reset" class="reset-btn">重置表单</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // 生成验证码
+  function generateCaptcha() {
+    const num1 = Math.floor(Math.random() * 10) + 1;
+    const num2 = Math.floor(Math.random() * 10) + 1;
+    const operator = ['+', '-', '×'][Math.floor(Math.random() * 3)];
+    
+    let result;
+    switch(operator) {
+      case '+': result = num1 + num2; break;
+      case '-': result = num1 - num2; break;
+      case '×': result = num1 * num2; break;
+    }
+    
+    const captchaText = `${num1} ${operator} ${num2} = ?`;
+    const captchaDisplay = document.getElementById('captchaDisplay');
+    if (captchaDisplay) {
+      captchaDisplay.textContent = captchaText;
+      captchaDisplay.dataset.result = result.toString();
+    }
+    
+    return result;
+  }
+
+  // 初始化验证码
+  let currentCaptchaResult = generateCaptcha();
+
+  // 刷新验证码
+  document.getElementById('refreshCaptcha')?.addEventListener('click', () => {
+    currentCaptchaResult = generateCaptcha();
+  });
+
+  // 表单提交处理
+  document.getElementById('appointmentForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const target = e.target as HTMLFormElement;
+    const formData = new FormData(target);
+    const userInput = formData.get('verificationCode');
+    
+    // 验证验证码
+    if (userInput && parseInt(userInput.toString()) !== currentCaptchaResult) {
+      alert('验证码错误，请重新输入');
+      currentCaptchaResult = generateCaptcha();
+      return;
+    }
+    
+    // 收集表单数据
+    const appointmentData = {
+      name: formData.get('name') || '',
+      phone: formData.get('phone') || '',
+      email: formData.get('email') || '',
+      appointmentTime: formData.get('appointmentTime') || '',
+      message: formData.get('message') || '',
+      submitTime: new Date().toISOString()
+    };
+    
+    try {
+      // 调用 Netlify Function 发送邮件
+      const response = await fetch('/.netlify/functions/send-appointment-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(appointmentData)
+      });
+
+      const result = await response.json();
+      
+      if (result.success) {
+        alert(result.message);
+        target.reset();
+        currentCaptchaResult = generateCaptcha();
+      } else {
+        alert(result.error || '提交失败，请稍后重试');
+      }
+    } catch (error) {
+      alert('提交失败，请稍后重试或联系客服。');
+      console.error('提交错误:', error);
+    }
+  });
+
+  // 页面加载时生成验证码
+  document.addEventListener('DOMContentLoaded', () => {
+    generateCaptcha();
+  });
+</script>
+
+<style>
+  .appointment-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .hero-section {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .hero-section h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+  }
+
+  .hero-section p {
+    font-size: 1.2rem;
+    color: #64748b;
+    line-height: 1.6;
+  }
+
+  .form-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.1);
+  }
+
+  .form-card h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 2rem;
+  }
+
+  .appointment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-group label {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.95rem;
+  }
+
+  .form-group label.required::after {
+    content: ' *';
+    color: #ef4444;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 0.75rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f9fafb;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  .verification-container {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .verification-container input {
+    flex: 1;
+  }
+
+  .captcha-display {
+    background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #374151;
+    min-width: 120px;
+    text-align: center;
+    border: 2px solid #d1d5db;
+  }
+
+  .refresh-captcha {
+    padding: 0.75rem 1rem;
+    background: #6b7280;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+  }
+
+  .refresh-captcha:hover {
+    background: #4b5563;
+    transform: translateY(-1px);
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  .submit-btn,
+  .reset-btn {
+    padding: 0.875rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .submit-btn {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  }
+
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+  }
+
+  .reset-btn {
+    background: #f3f4f6;
+    color: #374151;
+    border: 2px solid #d1d5db;
+  }
+
+  .reset-btn:hover {
+    background: #e5e7eb;
+    border-color: #9ca3af;
+  }
+
+  @media screen and (max-width: 768px) {
+    .appointment-page {
+      padding: 1rem 0.5rem;
+    }
+
+    .form-card {
+      padding: 1.5rem;
+    }
+
+    .hero-section h1 {
+      font-size: 2rem;
+    }
+
+    .verification-container {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .form-actions {
+      flex-direction: column;
+    }
+  }
+</style>

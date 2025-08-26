@@ -222,14 +222,16 @@ import Layout from '../layouts/Layout.astro';
         </div>
       `;
     }
-    const modal = document.getElementById('successModal');
-    modal.style.display = 'flex';
-    
-    // 添加ESC键监听
-    document.addEventListener('keydown', handleEscKey);
-    
-    // 添加点击空白区域关闭
-    modal.addEventListener('click', handleModalClick);
+    const modal = document.getElementById('successModal') as HTMLElement;
+    if (modal) {
+      modal.style.display = 'flex';
+      
+      // 添加ESC键监听
+      document.addEventListener('keydown', handleEscKey);
+      
+      // 添加点击空白区域关闭
+      modal.addEventListener('click', handleModalClick);
+    }
   }
 
   function showFailedModal(appointmentData) {
@@ -264,18 +266,20 @@ import Layout from '../layouts/Layout.astro';
         </div>
       `;
     }
-    const modal = document.getElementById('failedModal');
-    modal.style.display = 'flex';
-    
-    // 添加ESC键监听
-    document.addEventListener('keydown', handleEscKey);
-    
-    // 添加点击空白区域关闭
-    modal.addEventListener('click', handleModalClick);
+    const modal = document.getElementById('failedModal') as HTMLElement;
+    if (modal) {
+      modal.style.display = 'flex';
+      
+      // 添加ESC键监听
+      document.addEventListener('keydown', handleEscKey);
+      
+      // 添加点击空白区域关闭
+      modal.addEventListener('click', handleModalClick);
+    }
   }
 
   function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
+    const modal = document.getElementById(modalId) as HTMLElement;
     if (modal) {
       modal.style.display = 'none';
       
@@ -283,12 +287,12 @@ import Layout from '../layouts/Layout.astro';
       document.removeEventListener('keydown', handleEscKey);
       // 从正确的元素上移除点击事件监听器
       if (modalId === 'successModal') {
-        const successModal = document.getElementById('successModal');
+        const successModal = document.getElementById('successModal') as HTMLElement;
         if (successModal) {
           successModal.removeEventListener('click', handleModalClick);
         }
       } else if (modalId === 'failedModal') {
-        const failedModal = document.getElementById('failedModal');
+        const failedModal = document.getElementById('failedModal') as HTMLElement;
         if (failedModal) {
           failedModal.removeEventListener('click', handleModalClick);
         }
@@ -313,8 +317,8 @@ import Layout from '../layouts/Layout.astro';
   // 处理ESC键关闭弹窗
   function handleEscKey(event) {
     if (event.key === 'Escape') {
-      const successModal = document.getElementById('successModal');
-      const failedModal = document.getElementById('failedModal');
+      const successModal = document.getElementById('successModal') as HTMLElement;
+      const failedModal = document.getElementById('failedModal') as HTMLElement;
       
       if (successModal && successModal.style.display === 'flex') {
         closeModal('successModal');

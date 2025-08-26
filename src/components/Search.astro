@@ -38,7 +38,7 @@ const { placeholder = "搜索文档", showButton = true } = Astro.props;
     const query = searchInput.value.trim();
     if (query) {
       // 跳转到搜索结果页面
-      window.location.href = `/search?q=${encodeURIComponent(query)}`;
+      window.location.href = `./search?q=${encodeURIComponent(query)}`;
     }
   });
 
@@ -48,7 +48,7 @@ const { placeholder = "搜索文档", showButton = true } = Astro.props;
       const query = this.value.trim();
       if (query) {
         // 跳转到搜索结果页面
-        window.location.href = `/search?q=${encodeURIComponent(query)}`;
+        window.location.href = `./search?q=${encodeURIComponent(query)}`;
       }
     }
   });

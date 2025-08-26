@@ -7,7 +7,7 @@ const query = Astro.url.searchParams.get('q') || '';
   <div class="search-page page-background">
     <div class="search-header">
       <div class="search-header-top">
-        <a href="/" class="back-button">
+        <a href="../" class="back-button">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M19 12H5M12 19l-7-7 7-7"/>
           </svg>
@@ -216,7 +216,7 @@ const query = Astro.url.searchParams.get('q') || '';
     const query = searchInput.value.trim();
     if (query) {
       // 跳转到搜索结果页面
-      window.location.href = `/search?q=${encodeURIComponent(query)}`;
+      window.location.href = `./search?q=${encodeURIComponent(query)}`;
     }
   });
 
@@ -226,7 +226,7 @@ const query = Astro.url.searchParams.get('q') || '';
       const query = this.value.trim();
       if (query) {
         // 跳转到搜索结果页面
-        window.location.href = `/search?q=${encodeURIComponent(query)}`;
+        window.location.href = `./search?q=${encodeURIComponent(query)}`;
       }
     }
   });

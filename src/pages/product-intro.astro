@@ -1,5 +1,24 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import zidongshengcheng from '../assets/images/zidongshengcheng.png';
+import fuwudtongtai from '../assets/images/fuwudtongtai.png';
+import UIdongtaishengc from '../assets/images/UIdongtaishengc.png';
+import fuwuwangguan from '../assets/images/fuwuwangguan.png';
+import liuchengyinqin from '../assets/images/liuchengyinqin.png';
+import tuopuganzhi from '../assets/images/tuopuganzhi.png';
+import shishifaxian from '../assets/images/shishifaxian.png';
+import zhinengyuny from '../assets/images/zhinengyuny.jpeg';
+import shujuzichan from '../assets/images/shujuzichan.jpeg';
+import xietong from '../assets/images/xietong.jpeg';
+import jingxihuaziyun from '../assets/images/jingxihuaziyun.jpeg';
+import shuzizhuanx from '../assets/images/shuzizhuanx.jpeg';
+import juece from '../assets/images/juece.jpeg';
+import productOverview from '../assets/productImage/de1638a41e7f151958a583bb060c109e.jpeg';
+import lmn from '../assets/images/lmn.jpeg';
+import hijk from '../assets/images/hijk.jpeg';
+import efg from '../assets/images/efg.jpeg';
+import abcd from '../assets/images/abcd.jpeg';
+import manager from '../assets/images/manager.png';
 ---
 
 <Layout title="TeGo-AI 文档中心">
@@ -23,22 +42,22 @@ import Layout from '../layouts/Layout.astro';
       <div class="hero-visual">
         <div class="platform-showcase">
           <div class="main-platform">
-            <img src="../public/productImage/de1638a41e7f151958a583bb060c109e.jpeg" alt="TeGo-AI 平台概览" class="main-screenshot" />
+            <img src={productOverview.src} alt="TeGo-AI 平台概览" class="main-screenshot" />
             <div class="platform-glow"></div>
           </div>
 
           <div class="floating-modules">
             <div class="module module-1">
-              <img src="../public/lmn.jpeg" alt="功能模块1" />
+              <img src={lmn.src} alt="功能模块1" />
             </div>
             <div class="module module-2">
-              <img src="../public/hijk.jpeg" alt="功能模块2" />
+              <img src={hijk.src} alt="功能模块2" />
             </div>
             <div class="module module-3">
-              <img src="../public/efg.jpeg" alt="功能模块3" />
+              <img src={efg.src} alt="功能模块3" />
             </div>
             <div class="module module-4">
-              <img src="../public/abcd.jpeg" alt="功能模块4" />
+              <img src={abcd.src} alt="功能模块4" />
             </div>
           </div>
         </div>
@@ -60,7 +79,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="feature-main-section">
                   <div class="feature-main-item">
             <div class="feature-icon">
-              <img src="../public/manager.png" alt="智能实例管理" class="feature-icon-img" />
+              <img src={manager.src} alt="智能实例管理" class="feature-icon-img" />
             </div>
             <div class="feature-content">
               <h3>智能实例管理</h3>
@@ -75,7 +94,7 @@ import Layout from '../layouts/Layout.astro';
 
           <div class="feature-main-item">
             <div class="feature-icon">
-              <img src="/zidongshengcheng.png" alt="MCP服务自动化生成" class="feature-icon-img" />
+              <img src={zidongshengcheng.src} alt="MCP服务自动化生成" class="feature-icon-img" />
             </div>
             <div class="feature-content">
               <h3>MCP 服务自动化生成</h3>
@@ -93,7 +112,7 @@ import Layout from '../layouts/Layout.astro';
               <div class="feature-other-section">
           <div class="feature-other-item">
             <div class="feature-icon">
-              <img src="/fuwudtongtai.png" alt="服务动态发现与组合" class="feature-icon-img" />
+              <img src={fuwudtongtai.src} alt="服务动态发现与组合" class="feature-icon-img" />
             </div>
             <div class="feature-content">
               <h4>服务动态发现与组合</h4>
@@ -103,7 +122,7 @@ import Layout from '../layouts/Layout.astro';
           
           <div class="feature-other-item">
             <div class="feature-icon">
-              <img src="/UIdongtaishengc.png" alt="运行时UI动态生成" class="feature-icon-img" />
+              <img src={UIdongtaishengc.src} alt="运行时UI动态生成" class="feature-icon-img" />
             </div>
             <div class="feature-content">
               <h4>运行时 UI 动态生成</h4>
@@ -113,7 +132,7 @@ import Layout from '../layouts/Layout.astro';
           
           <div class="feature-other-item">
             <div class="feature-icon">
-              <img src="/fuwuwangguan.png" alt="LLM网关" class="feature-icon-img" />
+              <img src={fuwuwangguan.src} alt="LLM网关" class="feature-icon-img" />
             </div>
             <div class="feature-content">
               <h4>LLM网关</h4>
@@ -123,7 +142,7 @@ import Layout from '../layouts/Layout.astro';
           
           <div class="feature-other-item">
             <div class="feature-icon">
-              <img src="/liuchengyinqin.png" alt="流程引擎与数据总线" class="feature-icon-img" />
+              <img src={liuchengyinqin.src} alt="流程引擎与数据总线" class="feature-icon-img" />
             </div>
             <div class="feature-content">
               <h4>流程引擎与数据总线</h4>
@@ -161,7 +180,7 @@ import Layout from '../layouts/Layout.astro';
                   <div class="tech-advantages-entries">
             <div class="tech-entry">
               <div class="tech-entry-icon">
-                <img src="/tuopuganzhi.png" alt="拓扑感知调度" class="tech-entry-icon-img" />
+                <img src={tuopuganzhi.src} alt="拓扑感知调度" class="tech-entry-icon-img" />
               </div>
               <div class="tech-entry-content">
                 <h4>拓扑感知调度</h4>
@@ -171,7 +190,7 @@ import Layout from '../layouts/Layout.astro';
             
             <div class="tech-entry">
               <div class="tech-entry-icon">
-                <img src="/shishifaxian.png" alt="实时服务发现" class="tech-entry-icon-img" />
+                <img src={shishifaxian.src} alt="实时服务发现" class="tech-entry-icon-img" />
               </div>
               <div class="tech-entry-content">
                 <h4>实时服务发现</h4>
@@ -181,7 +200,7 @@ import Layout from '../layouts/Layout.astro';
             
             <div class="tech-entry">
               <div class="tech-entry-icon">
-                <img src="/UIdongtaishengc.png" alt="运行时UI" class="tech-entry-icon-img" />
+                <img src={UIdongtaishengc.src} alt="运行时UI" class="tech-entry-icon-img" />
               </div>
               <div class="tech-entry-content">
                 <h4>运行时 UI</h4>
@@ -202,7 +221,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="scenarios-elegant">
         <div class="scenario-elegant-item">
           <div class="scenario-elegant-image">
-            <img src="/zhinengyuny.jpeg" alt="全域智能运营" />
+            <img src={zhinengyuny.src} alt="全域智能运营" />
             <div class="scenario-elegant-overlay">
               <h3>全域智能运营</h3>
               <p>驱动企业流程自治，重塑管理效率巅峰</p>
@@ -212,7 +231,7 @@ import Layout from '../layouts/Layout.astro';
         
         <div class="scenario-elegant-item">
           <div class="scenario-elegant-image">
-            <img src="/shujuzichan.jpeg" alt="数据资产对话化" />
+            <img src={shujuzichan.src} alt="数据资产对话化" />
             <div class="scenario-elegant-overlay">
               <h3>数据资产对话化</h3>
               <p>为数据驱动的决策提供强有力的支持，让数据秒变决策智慧</p>
@@ -222,7 +241,7 @@ import Layout from '../layouts/Layout.astro';
         
         <div class="scenario-elegant-item">
           <div class="scenario-elegant-image">
-            <img src="/xietong.jpeg" alt="无界业务协同" />
+            <img src={xietong.src} alt="无界业务协同" />
             <div class="scenario-elegant-overlay">
               <h3>无界业务协同</h3>
               <p>打破系统孤岛，构建跨组织一体化运营新范式</p>
@@ -232,7 +251,7 @@ import Layout from '../layouts/Layout.astro';
         
         <div class="scenario-elegant-item">
           <div class="scenario-elegant-image">
-            <img src="/jingxihuaziyun.jpeg" alt="云资源精细治理" />
+            <img src={jingxihuaziyun.src} alt="云资源精细治理" />
             <div class="scenario-elegant-overlay">
               <h3>云资源精细治理</h3>
               <p>以 AI-FINOPS 实现算力与成本的最优解</p>
@@ -242,7 +261,7 @@ import Layout from '../layouts/Layout.astro';
         
         <div class="scenario-elegant-item">
           <div class="scenario-elegant-image">
-            <img src="/shuzizhuanx.jpeg" alt="极简数字转型" />
+            <img src={shuzizhuanx.src} alt="极简数字转型" />
             <div class="scenario-elegant-overlay">
               <h3>极简数字转型</h3>
               <p>零改动接入存量系统，一键跃迁智能化</p>
@@ -252,7 +271,7 @@ import Layout from '../layouts/Layout.astro';
         
         <div class="scenario-elegant-item">
           <div class="scenario-elegant-image">
-            <img src="/juece.jpeg" alt="人机共生决策" />
+            <img src={juece.src} alt="人机共生决策" />
             <div class="scenario-elegant-overlay">
               <h3>人机共生决策</h3>
               <p>动态 UI 实时交互，释放人类创造力与 AI 算力的乘数效应</p>

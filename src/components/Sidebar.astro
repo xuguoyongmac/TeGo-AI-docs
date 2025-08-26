@@ -26,8 +26,6 @@ const { title, items } = Astro.props;
 </aside>
 
 <script>
-  console.log('Sidebar script starting...');
-  
   // 等待DOM加载完成
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initSidebar);
@@ -36,16 +34,11 @@ const { title, items } = Astro.props;
   }
   
   function initSidebar() {
-    console.log('Sidebar script loaded');
-    
     const tocLinks = document.querySelectorAll('.toc-link');
     const sections = document.querySelectorAll('h1[id], h2[id], h3[id]');
-    
-    console.log('Found tocLinks:', tocLinks.length);
-    console.log('Found sections:', sections.length);
 
     // 滚动监听，更新活动链接
-    let lastActiveSection = '';
+    let lastActiveSection: string | null = null;
     let isScrollingToTarget = false;
     
     function updateActiveLink() {
@@ -58,7 +51,7 @@ const { title, items } = Astro.props;
       const navbarHeight = navbar ? navbar.offsetHeight : 88;
       const offset = navbarHeight + 100; // 增加偏移量，避免选中过早
       
-      let currentSection = null;
+      let currentSection: string | null = null;
       
       // 如果滚动位置在页面顶部，选中"概述"或第一个章节
       if (scrollTop < offset) {
@@ -96,7 +89,7 @@ const { title, items } = Astro.props;
         tocLinks.forEach(link => {
           link.classList.remove('active');
           const href = link.getAttribute('href');
-          if (href && href === '#' + currentSection) {
+          if (href && currentSection && href === '#' + currentSection) {
             link.classList.add('active');
           }
         });
@@ -134,16 +127,16 @@ const { title, items } = Astro.props;
               });
             }
           
-          // 清除URL中的锚点
-          history.pushState(null, '', window.location.pathname);
-          
-          // 更新活动状态
-          tocLinks.forEach(l => l.classList.remove('active'));
-          this.classList.add('active');
-          lastActiveSection = targetId;
-          
-          return;
-        }
+            // 清除URL中的锚点
+            history.pushState(null, '', window.location.pathname);
+            
+            // 更新活动状态
+            tocLinks.forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+            lastActiveSection = targetId;
+            
+            return;
+          }
         
         const targetElement = document.getElementById(targetId);
         if (targetElement) {
